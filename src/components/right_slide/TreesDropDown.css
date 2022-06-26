@@ -1,0 +1,42 @@
+.trees-dropdown-container {
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  border: none;
+}
+
+.tree-option {
+  color: #000;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.trees-dropdown {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  margin: 0;
+  padding: 2px;
+  width: 90%;
+  background-color: rgba(0, 0, 0, 0);
+  color: #fff;
+  font-size: 20px;
+  border: 1.5px solid #888;
+  border-radius: 10px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.trees-dropdown:hover, .trees-dropdown:focus {
+  border-color: rgb(50, 160, 255);
+  box-shadow: 0 0 8px rgb(50, 160, 255);
+}

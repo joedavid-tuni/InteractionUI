@@ -1,0 +1,35 @@
+.left-arrow {
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;   
+  left: 0;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  height: 60px;
+  fill:#888;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  overflow: visible;
+  transition: 0.4s;
+}
+
+.left-arrow:hover {  
+  transition: 0s;
+  fill: rgb(50, 160, 255);
+  -webkit-filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+  filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+}
+
+.left-arrow-icon {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;   
+  cursor: pointer;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  height: 80px;
+}

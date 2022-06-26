@@ -1,0 +1,9 @@
+.inner-frame {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;   
+  overflow: hidden;   
+  border: 1px solid #222;
+  background-color: rgba(0,0,0,0);
+}

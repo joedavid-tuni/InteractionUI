@@ -1,0 +1,58 @@
+.settings-button {
+  bottom: 0;
+  left: 2.5%;
+  width: 10%;
+  height: 20%;
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
+
+.settings-button2 {
+  overflow: visible;
+  display: inline-block;
+  position: relative;
+  background-color: rgba(0,0,0,0);
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  transition: 0.05s;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+}
+
+.settings-icon {
+  fill: #555;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  transition: 0.05s;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+.settings-button2:hover > .settings-icon {
+  fill:rgb(50, 160, 255);
+  -webkit-filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+  filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+}
+.settings-icon:hover {
+  fill:rgb(50, 160, 255);
+  -webkit-filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+  filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+}
+.settings-icon:active:hover {
+  width: 50px;
+  height: 50px;
+}

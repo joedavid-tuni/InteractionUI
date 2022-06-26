@@ -1,0 +1,48 @@
+.receiver-button-container {
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
+
+.receiver-button {
+  overflow: visible;
+  position: absolute;
+  height: 90%;
+  width: 90%;
+  background-color: #78a;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  border: 4px outset #78a;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.receiver-button-text {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  vertical-align: middle;
+  width: 100%;
+}
+
+.receiver-button:hover {  
+  background-color: rgb(50, 160, 255);
+  border: 4px outset rgb(50, 160, 255);
+}
+.receiver-button:active {  
+  background-color: rgb(50, 160, 255);
+  border: 4px inset rgb(50, 160, 255);
+}

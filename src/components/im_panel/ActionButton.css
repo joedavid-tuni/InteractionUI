@@ -1,0 +1,52 @@
+.action-button-container {
+  top: 0;
+  left: 0;
+  width: 33%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.action-button {
+  overflow: visible;
+  height: 90%;
+  width: 90%;
+  background-color: #78a;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-radius: 110px;
+  border: 4px outset #78a;
+  cursor: pointer;
+  transition: 0.2s;
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
+
+.action-button-text {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  vertical-align: middle;
+  width: 100%;
+  font-size: 14px;
+}
+
+.action-button:hover {
+  background-color: rgb(50, 160, 255);
+  border: 4px outset rgb(50, 160, 255);   
+}
+.action-button:active:hover {
+  background-color: rgb(50, 160, 255);
+  border: 4px inset rgb(50, 160, 255);        
+}

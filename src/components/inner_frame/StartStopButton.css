@@ -1,0 +1,50 @@
+.start-stop-button {
+  bottom: 0;
+  left: 12.5%;
+  width: 10%;
+  height: 20%;
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
+
+.start-stop-button2 {
+  overflow: visible;
+  display: inline-block;
+  position: relative;
+  border: 4px outset #78a;
+  background-color: #78a;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.start-stop-text {
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  top: 50%;
+  width: 100%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.start-stop-button2:hover{
+  background-color: rgb(50, 160, 255);
+  border: 4px outset rgb(50, 160, 255);
+}
+
+.start-stop-button2:active:hover {
+  background-color: rgb(50, 160, 255);
+  border: 4px inset rgb(50, 160, 255);        
+}

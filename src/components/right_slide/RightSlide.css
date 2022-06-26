@@ -1,0 +1,35 @@
+.right-slide {
+  background-color: rgba(0, 0, 0, 0.6);
+  right: 0%;
+  overflow: visible;
+  width: 40%;
+  max-width: 50%;
+  height: 100%;
+  transition: 0.4s;
+  top: 0;
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #888;
+}
+
+.right-drag-bar {
+  border: none;
+  background-color: rgba(0,0,0,0);
+  cursor: e-resize;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  top: 0;
+  width: 10px;
+  left: -5px;
+  display: inline-block;
+}
+
+.right-drag-bar:hover {
+  transition: 0.2s;
+  background-color:rgba(50,160,255, 0.5); 
+  box-shadow: 0 0 10px rgba(50, 160, 255, 5);
+}

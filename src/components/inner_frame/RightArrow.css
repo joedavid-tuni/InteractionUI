@@ -1,0 +1,37 @@
+.right-arrow {
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;   
+
+  overflow: visible;
+  right: 0;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  height: 60px;
+  fill:#888;
+  border: none;
+  background-color: rgba(0,0,0,0);
+
+  transition: 0.4s;
+}
+
+.right-arrow:hover {  
+  fill: rgb(50, 160, 255);
+  -webkit-filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+  filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+  transition: 0.0s;
+}
+
+.right-arrow-icon {
+  position: relative;
+  margin: 0;
+  padding: 0;   
+  cursor: pointer;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  height: 80px;
+  float: right;
+}
