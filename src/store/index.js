@@ -75,7 +75,7 @@ const blinkingSlice = createSlice({
   },
   reducers: {
     toggleBlinkingState(state) {
-      if (state.blinkingState == true) {
+      if (state.blinkingState === true) {
         state.blinkingState = false;
       } else {
         state.blinkingState = true;
@@ -97,7 +97,7 @@ const canvasSlice = createSlice({
         let val = (q.y - p.y) * (r.x - q.x) -
           (q.x - p.x) * (r.y - q.y);
 
-        if (val == 0) return 0;
+        if (val === 0) return 0;
         return (val > 0) ? 1 : 2;
       }
 
@@ -119,17 +119,17 @@ const canvasSlice = createSlice({
           q = (p + 1) % n;
 
           for (let i = 0; i < n; i++) {
-            if (orientation(points[p], points[i], points[q]) == 2) q = i;
+            if (orientation(points[p], points[i], points[q]) === 2) q = i;
           }
 
           p = q;
-        } while (p != l);
+        } while (p !== l);
 
         return hull;
       }
       const getPolygonByName = (name) => {
         for (let polygon of state.polygons) {
-          if (polygon.name == name) {
+          if (polygon.name === name) {
             return polygon;
           }
         }
@@ -137,7 +137,7 @@ const canvasSlice = createSlice({
 
       let polygon = getPolygonByName(data.name);
 
-      if (polygon == undefined) {
+      if (polygon === undefined) {
         // Add new polygon
         polygon = data;
         polygon.points = convexHull(polygon.points);
@@ -153,7 +153,7 @@ const canvasSlice = createSlice({
     changeBlinkingState: (state, actions) => {
       const getPolygonByName = (name) => {
         for (let polygon of state.polygons) {
-          if (polygon.name == name) {
+          if (polygon.name === name) {
             return polygon;
           }
         }
@@ -165,7 +165,7 @@ const canvasSlice = createSlice({
     changeColor: (state, actions) => {
       const getPolygonByName = (name) => {
         for (let polygon of state.polygons) {
-          if (polygon.name == name) {
+          if (polygon.name === name) {
             return polygon;
           }
         }
@@ -177,7 +177,7 @@ const canvasSlice = createSlice({
     changeMode: (state, actions) => {
       const getPolygonByName = (name) => {
         for (let polygon of state.polygons) {
-          if (polygon.name == name) {
+          if (polygon.name === name) {
             return polygon;
           }
         }
@@ -234,25 +234,25 @@ const configSlice = createSlice({
 });
 
 
-// const handleWSMessage = createSlice({
-//   name: "message",
-//   initialState: { type: null, values: null },
-//   reducers : {
-//     requestScreenParams(){
+const handleWSMessageSlice = createSlice({
+  name: "message",
+  initialState: { type: null, values: null },
+  reducers : {
+    requestScreenParams(){
 
-//     },
-//     updateTree(){
+    },
+    updateTree(){
 
-//     },
-//     drawOnCanvas(){
+    },
+    drawOnCanvas(){
 
-//     },
-//     handleIMMessage(){
+    },
+    handleIMMessage(){
 
-//     }
-//   }
+    }
+  }
 
-// });
+});
 
 const store = configureStore({
   reducer: {
@@ -262,7 +262,8 @@ const store = configureStore({
     imPanel: imPanelSlice.reducer,
     blinking: blinkingSlice.reducer,
     canvas: canvasSlice.reducer,
-    config: configSlice.reducer
+    config: configSlice.reducer,
+    message: handleWSMessageSlice.reducer 
   }
 });
 
@@ -273,5 +274,6 @@ export const imPanelActions = imPanelSlice.actions;
 export const blinkingActions = blinkingSlice.actions;
 export const canvasActions = canvasSlice.actions;
 export const configActions = configSlice.actions;
+export const handleMessageActions = handleWSMessageSlice.actions;
 
 export default store;
