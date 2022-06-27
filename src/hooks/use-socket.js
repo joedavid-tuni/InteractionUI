@@ -103,7 +103,7 @@ const useSocket = () => {
         //     socket.close();
         // }; 
 
-    })
+    },[])
 
 
 

@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bottomSlideActions } from '../../store';
 import { useRef } from 'react';
 import Radius from '../Radius';
+import useSocket from '../../hooks/use-socket';
 
-const CaButton = ({socket}) => {
+const CaButton = () => {
   const radius = useSelector((state) => state.config.radius.caButton);
   const ref = useRef(null);
+  const [isOpen, msg, socket] = useSocket();
 
   const dispatch = useDispatch();
 

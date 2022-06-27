@@ -7,8 +7,9 @@ import CancelButton from './CancelButton';
 import { useEffect, useState } from 'react';    
 import { useDispatch, useSelector } from 'react-redux';
 import { bottomSlideActions } from '../../store';
+import useSocket from '../../hooks/use-socket';
  
-const BottomSlide = ({socket}) => {
+const BottomSlide = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.bottomSlide.isOpen);
   const [caIndex, setCaIndex] = useState(0);
@@ -17,6 +18,7 @@ const BottomSlide = ({socket}) => {
   const [taskList, setTaskList] = useState([]);
   const [taskComponents, setTaskComponents] = useState();
   const [isFloatOut, setIsFloatOut] = useState(false);
+  const [isReady, msg, socket] = useSocket()
   const changeCaIndex = (index) => {
     setCaIndex(index)
   }

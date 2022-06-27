@@ -11,7 +11,7 @@ function App() {
   const tree = useSelector((state) => state.rightSlide.tree);
   const dispatch = useDispatch();
   // const [socket, setSocket] = useState();
-  // const ws = useSocket();
+  // const [isReady, msg, socket] = useSocket();
   const [isOpen, msg, socket] = useSocket()
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function App() {
 
   return (
     <WSContextProvider >
-      <OuterFrame socket={socket}/>
+      <OuterFrame />
       <ModalOverlay></ModalOverlay>
     </WSContextProvider>
   );

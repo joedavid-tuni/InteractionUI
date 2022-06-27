@@ -2,6 +2,7 @@ import './ImPanel.css';
 import ActionButton from './ActionButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { imPanelActions } from '../../store/index';
+import useSocket from '../../hooks/use-socket';
 
 const imClasses = [
   {name: "class 1", bg: "linear-gradient(rgb(214, 228, 252), rgb(128, 192, 255))", optionButtons: [{id: 1, text: "option 1"}, {id: 2, text: "option 2"}, {id: 3, text: "option 3"}]},
@@ -10,10 +11,11 @@ const imClasses = [
   {name: "class 4", bg: "linear-gradient(rgb(214, 252, 228), rgb(128, 255, 192))", optionButtons: [{id: 9, text: "option 9"}, {id: 10, text: "option 10"}]},
   {name: "class 5", bg: "linear-gradient(rgb(228, 252, 214), rgb(192, 255, 128))", optionButtons: [{id: 11, text: "option 11"}]}
 ]
-const ImPanel = ({socket}) => {
+const ImPanel = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.imPanel.isOpen);
   const imData = useSelector((state) => state.imPanel.imData)
+  const [isReady, msg, socket] = useSocket()
 
   const optionButtonClickHandler = (id) => {
     console.log(id)

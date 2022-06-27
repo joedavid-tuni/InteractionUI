@@ -10,7 +10,7 @@ import BottomSlide from '../bottom_slide/BottomSlide';
 import ImPanel from '../im_panel/ImPanel';
 import { useSelector } from 'react-redux';
 
-const InnerFrame = ({socket}) => {  
+const InnerFrame = () => {  
   const config = useSelector((state) => state.config.innerFrame);
   
   return (
@@ -24,11 +24,11 @@ const InnerFrame = ({socket}) => {
       <RightArrow></RightArrow>
       <SettingsButton></SettingsButton>
       <StartStopButton></StartStopButton>
-      <CaButton socket={socket}></CaButton>
+      <CaButton ></CaButton>
       <LeftSlide></LeftSlide>
       <RightSlide></RightSlide>
-      <BottomSlide socket={socket}></BottomSlide>
-      <ImPanel socket={socket}></ImPanel>
+      <BottomSlide ></BottomSlide>
+      <ImPanel ></ImPanel>
     </div>
   )
 }

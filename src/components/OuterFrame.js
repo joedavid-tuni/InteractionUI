@@ -5,7 +5,7 @@ import Canvas from './canvas/Canvas';
 const OuterFrame = ({socket}) => {
   return (
     <div className='outer-frame'>
-      <InnerFrame socket={socket}/>
+      <InnerFrame />
       <Canvas />
     </div>
   )
