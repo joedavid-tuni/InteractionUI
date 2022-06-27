@@ -1,7 +1,7 @@
 import './TreesDropDown.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { rightSlideActions } from '../../store/index';
+import { rightDrawerActions } from '../../store/rightdrawer_slice'; 
 
 const dummyTree1 = [
   {name: "Mail", key: "1", state: "initial", items: [
@@ -99,10 +99,10 @@ const TreesDropDown = () => {
       if (selectedId == 2) {t = dummyTree2;}
       if (selectedId == 3) {t = dummyTree3;}
 
-      dispatch(rightSlideActions.setTree(t));
+      dispatch(rightDrawerActions.setTree(t));
     }, 1000);
 
-    dispatch(rightSlideActions.setTree([]));
+    dispatch(rightDrawerActions.setTree([]));
   }, [selectedId])
 
   return (

@@ -2,7 +2,9 @@ import { useContext, useState, useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import WSContext from "../store/ws-context"
 import fetchScreenParams from "../utils/screenparams";
-import { canvasActions, imPanelActions, rightSlideActions } from "../store";
+import { rightDrawerActions } from "../store/rightdrawer_slice";
+import { canvasActions } from "../store/canvas_slice";
+import { messageDrawerActions } from "../store/messagedrawer_slice";
 
 
 const useSocket = () => {
@@ -76,7 +78,7 @@ const useSocket = () => {
                     updateTreeElement(tempTree, msgOBJ.key, msgOBJ.state);
 
                     // Update the original tree with the tempTree
-                    dispatch(rightSlideActions.setTree(tempTree));
+                    dispatch(rightDrawerActions.setTree(tempTree));
 
                     return;
                 case "canvas-polygon-drawing":
@@ -88,8 +90,8 @@ const useSocket = () => {
                     // setConfig2(msgOBJ); // Configure UI via socket
                     return;
                 case "im-message":
-                    dispatch(imPanelActions.setImData(msgOBJ));
-                    dispatch(imPanelActions.open());
+                    dispatch(messageDrawerActions.setImData(msgOBJ));
+                    dispatch(messageDrawerActions.open());
                     return;
             }
             console.log(msgOBJ)

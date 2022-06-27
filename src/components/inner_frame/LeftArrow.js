@@ -1,6 +1,6 @@
 import './LeftArrow.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { leftSlideActions } from '../../store/index';
+import { leftDrawerActions } from '../../store/leftdrawer_slice';
 import { useRef } from 'react';
 import Radius from '../Radius';
 
@@ -12,7 +12,7 @@ const LeftArrow = () => {
   const isOpen = useSelector((state) => state.leftSlide.isOpen);
   
   const openLeftSlide = () => {
-    dispatch(leftSlideActions.open());
+    dispatch(leftDrawerActions.open());
   }
 
   return (

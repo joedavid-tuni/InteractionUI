@@ -1,7 +1,7 @@
 import './ImPanel.css';
 import ActionButton from './ActionButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { imPanelActions } from '../../store/index';
+import { messageDrawerActions } from '../../store/messagedrawer_slice';
 import useSocket from '../../hooks/use-socket';
 
 const imClasses = [
@@ -19,7 +19,7 @@ const ImPanel = () => {
 
   const optionButtonClickHandler = (id) => {
     console.log(id)
-    dispatch(imPanelActions.close());
+    dispatch(messageDrawerActions.close());
     socket.send(JSON.stringify({
       type: "option-selection",
       values: [id]

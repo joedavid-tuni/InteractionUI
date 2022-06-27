@@ -1,6 +1,6 @@
 import './CaButton.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { bottomSlideActions } from '../../store';
+import { interactionActions } from '../../store/interactiondrawer_slice';
 import { useRef } from 'react';
 import Radius from '../Radius';
 import useSocket from '../../hooks/use-socket';
@@ -13,7 +13,7 @@ const CaButton = () => {
   const dispatch = useDispatch();
 
   const bottomFloatIn = () => {
-    dispatch(bottomSlideActions.open());
+    dispatch(interactionActions.open());
 
     // Uncomment the line below to request tree item element change via websocket
     //socket.send(JSON.stringify({type: "getResponse"}))

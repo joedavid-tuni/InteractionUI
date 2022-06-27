@@ -6,7 +6,7 @@ import SendButton from './SendButton';
 import CancelButton from './CancelButton';
 import { useEffect, useState } from 'react';    
 import { useDispatch, useSelector } from 'react-redux';
-import { bottomSlideActions } from '../../store';
+import { interactionActions } from '../../store/interactiondrawer_slice';
 import useSocket from '../../hooks/use-socket';
  
 const BottomSlide = () => {
@@ -67,7 +67,7 @@ const BottomSlide = () => {
   }
 
   const closeBottomSlide = () => {
-    dispatch(bottomSlideActions.close());
+    dispatch(interactionActions.close());
   }
 
   const sendClick = () => {

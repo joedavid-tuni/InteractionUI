@@ -1,6 +1,6 @@
 import './LeftArrow2.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { leftSlideActions } from '../../store/index';
+import { leftDrawerActions } from '../../store/leftdrawer_slice';
 import { useRef } from 'react';
 import Radius from '../Radius';
 
@@ -11,7 +11,7 @@ const LeftArrow2 = () => {
   const dispatch = useDispatch();
 
   const closeLeftSlide = () => {
-    dispatch(leftSlideActions.close());
+    dispatch(leftDrawerActions.close());
   }
 
   return (

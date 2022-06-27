@@ -1,6 +1,6 @@
 import './RightArrow.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { rightSlideActions } from '../../store/index';
+import { rightDrawerActions } from '../../store/rightdrawer_slice';
 import { useRef } from 'react';
 import Radius from '../Radius';
 
@@ -12,7 +12,7 @@ const RightArrow = () => {
   const isOpen = useSelector((state) => state.rightSlide.isOpen);
 
   const openRightSlide = () => {
-    dispatch(rightSlideActions.open());
+    dispatch(rightDrawerActions.open());
   }
   
   return ( 
