@@ -54,110 +54,110 @@ function App() {
     }, 6000);
   }
 
-  const fetchScreenParams = () => {
-    let contentWidth = [...document.body.children].reduce((a, el) => Math.max(a, el.getBoundingClientRect().right), 0) - document.body.getBoundingClientRect().x;
+  // const fetchScreenParams = () => {
+  //   let contentWidth = [...document.body.children].reduce((a, el) => Math.max(a, el.getBoundingClientRect().right), 0) - document.body.getBoundingClientRect().x;
 
-    const windowWidth = document.documentElement.clientWidth;
-    const windowHeight = document.documentElement.clientHeight;
-    const pageWidth = Math.min(document.body.scrollWidth, contentWidth);
-    const pageHeight = document.body.scrollHeight;
-    const screenWidth = window.screen.width;
-    const screenHeight = window.screen.height;
-    const pageX = document.body.getBoundingClientRect().x;
-    const pageY = document.body.getBoundingClientRect().y;
-    const screenX = window.screenX; //Return the x  coordinates of the window relative to the screen
-    const screenY = window.screenY //- (window.outerHeight - window.innerHeight); //Return the y coordinates of the window relative to the screen
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+  //   const windowWidth = document.documentElement.clientWidth;
+  //   const windowHeight = document.documentElement.clientHeight;
+  //   const pageWidth = Math.min(document.body.scrollWidth, contentWidth);
+  //   const pageHeight = document.body.scrollHeight;
+  //   const screenWidth = window.screen.width;
+  //   const screenHeight = window.screen.height;
+  //   const pageX = document.body.getBoundingClientRect().x;
+  //   const pageY = document.body.getBoundingClientRect().y;
+  //   const screenX = window.screenX; //Return the x  coordinates of the window relative to the screen
+  //   const screenY = window.screenY //- (window.outerHeight - window.innerHeight); //Return the y coordinates of the window relative to the screen
+  //   const viewportWidth = window.innerWidth;
+  //   const viewportHeight = window.innerHeight;
 
-    let currentScreenParameters = {
-      type: "currentScreenParameters",
-      values: [windowWidth, windowHeight, pageWidth, pageHeight, screenWidth, screenHeight, pageX, pageY, screenX,
-        screenY, viewportWidth, viewportHeight]
-    }
-    return JSON.stringify(currentScreenParameters)
-  }
+  //   let currentScreenParameters = {
+  //     type: "currentScreenParameters",
+  //     values: [windowWidth, windowHeight, pageWidth, pageHeight, screenWidth, screenHeight, pageX, pageY, screenX,
+  //       screenY, viewportWidth, viewportHeight]
+  //   }
+  //   return JSON.stringify(currentScreenParameters)
+  // }
 
-  useEffect(() => {
-    // let s = new WebSocket("ws://127.0.0.1:8887");
+  // useEffect(() => {
+  //   // let s = new WebSocket("ws://127.0.0.1:8887");
 
-    ws.onopen = function(e) {
-      console.log("[open] Connection established with Server");
-    };
+  //   ws.onopen = function(e) {
+  //     console.log("[open] Connection established with Server");
+  //   };
   
-    ws.onclose = function(event) {
-      if (event.wasClean) {
-        alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-      } else {
-        alert('[close] Connection died');
-      }
-    };
+  //   ws.onclose = function(event) {
+  //     if (event.wasClean) {
+  //       alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+  //     } else {
+  //       alert('[close] Connection died');
+  //     }
+  //   };
   
-    ws.onerror = function(error) {
-      alert(`[error] ${error.message}`);
-    };
+  //   ws.onerror = function(error) {
+  //     alert(`[error] ${error.message}`);
+  //   };
 
-    setSocket(ws);
-  }, [])
+  //   setSocket(ws);
+  // }, [])
   
-  useEffect (() => {
-    if (socket == undefined) return;
+  // useEffect (() => {
+  //   if (socket == undefined) return;
 
-    socket.onmessage = function(event) {  
-      console.log(event.data);
-      let msgOBJ = JSON.parse(event.data);
+  //   socket.onmessage = function(event) {  
+  //     console.log(event.data);
+  //     let msgOBJ = JSON.parse(event.data);
 
-      switch (msgOBJ.type) {
-        case "requestScreenParams":
-          socket.send(fetchScreenParams());
+  //     switch (msgOBJ.type) {
+  //       case "requestScreenParams":
+  //         socket.send(fetchScreenParams());
 
-          return;
-        case "tree-status-change":
-          const updateTreeElement = (t, key, state) => {
-            let element;
-            // Loop through each element in the tree
-            for (let e of t) {
-              if (e.key == key) {
-                // If key found, update the state
-                return e.state = state;
-              }
-              if (!e.items == undefined) {
-                // Recursive function (Calls itself if there are sub elements)
-                element = updateTreeElement(e.items, key, state);
-                if (!element == undefined) {
-                  // If key found, update the state
-                  return element.state = state;
-                }
-              }
-            }
-          } 
+  //         return;
+  //       case "tree-status-change":
+  //         const updateTreeElement = (t, key, state) => {
+  //           let element;
+  //           // Loop through each element in the tree
+  //           for (let e of t) {
+  //             if (e.key == key) {
+  //               // If key found, update the state
+  //               return e.state = state;
+  //             }
+  //             if (!e.items == undefined) {
+  //               // Recursive function (Calls itself if there are sub elements)
+  //               element = updateTreeElement(e.items, key, state);
+  //               if (!element == undefined) {
+  //                 // If key found, update the state
+  //                 return element.state = state;
+  //               }
+  //             }
+  //           }
+  //         } 
 
-          // Create a copy of the current tree
-          let tempTree = JSON.parse(JSON.stringify(tree));
+  //         // Create a copy of the current tree
+  //         let tempTree = JSON.parse(JSON.stringify(tree));
           
-          // Update a single element in the tempTree
-          // msgOBJ.key = The unique key of the element to be updated
-          // msgOBJ.state = The updated version of the selected element
-          updateTreeElement(tempTree, msgOBJ.key, msgOBJ.state);
+  //         // Update a single element in the tempTree
+  //         // msgOBJ.key = The unique key of the element to be updated
+  //         // msgOBJ.state = The updated version of the selected element
+  //         updateTreeElement(tempTree, msgOBJ.key, msgOBJ.state);
           
-          // Update the original tree with the tempTree
-          dispatch(rightSlideActions.setTree(tempTree));
+  //         // Update the original tree with the tempTree
+  //         dispatch(rightSlideActions.setTree(tempTree));
           
-          return;
-        case "canvas-polygon-drawing":     
-          dispatch(canvasActions.handleInput(msgOBJ.values));
+  //         return;
+  //       case "canvas-polygon-drawing":     
+  //         dispatch(canvasActions.handleInput(msgOBJ.values));
 
-          return;
-        case "configData":
-          // setConfig2(msgOBJ); // Configure UI via socket
-          return;
-        case "im-message":          
-          dispatch(imPanelActions.setImData(msgOBJ));
-          dispatch(imPanelActions.open());
-      }
-      console.log(msgOBJ)
-    };
-  }, [tree])
+  //         return;
+  //       case "configData":
+  //         // setConfig2(msgOBJ); // Configure UI via socket
+  //         return;
+  //       case "im-message":          
+  //         dispatch(imPanelActions.setImData(msgOBJ));
+  //         dispatch(imPanelActions.open());
+  //     }
+  //     console.log(msgOBJ)
+  //   };
+  // }, [tree])
 
   const blinking = () => {
     setTimeout(() => {

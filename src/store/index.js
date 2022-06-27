@@ -90,22 +90,22 @@ const canvasSlice = createSlice({
     polygons: []
   },
   reducers: {
-    handleInput: (state, actions) =>{     
-      let data = actions.payload 
-      
+    handleInput: (state, actions) => {
+      let data = actions.payload
+
       const orientation = (p, q, r) => {
         let val = (q.y - p.y) * (r.x - q.x) -
-              (q.x - p.x) * (r.y - q.y);
-          
-          if (val == 0) return 0;
-          return (val > 0) ? 1 : 2;
+          (q.x - p.x) * (r.y - q.y);
+
+        if (val == 0) return 0;
+        return (val > 0) ? 1 : 2;
       }
 
       const convexHull = (points) => {
         let n = points.length;
 
         if (n < 3) return;
-        
+
         let hull = [];
         let l = 0;
 
@@ -117,14 +117,14 @@ const canvasSlice = createSlice({
         do {
           hull.push(points[p]);
           q = (p + 1) % n;
-      
+
           for (let i = 0; i < n; i++) {
             if (orientation(points[p], points[i], points[q]) == 2) q = i;
           }
 
-          p = q;        
+          p = q;
         } while (p != l);
-        
+
         return hull;
       }
       const getPolygonByName = (name) => {
@@ -134,14 +134,14 @@ const canvasSlice = createSlice({
           }
         }
       }
-      
+
       let polygon = getPolygonByName(data.name);
-  
+
       if (polygon == undefined) {
         // Add new polygon
         polygon = data;
         polygon.points = convexHull(polygon.points);
-  
+
         state.polygons.push(polygon);
       } else {
         // Update existing polygon
@@ -158,11 +158,11 @@ const canvasSlice = createSlice({
           }
         }
       }
-      
+
       let polygon = getPolygonByName(actions.name);
       polygon.mode = actions.mode;
     },
-    changeColor: (state, actions) => { 
+    changeColor: (state, actions) => {
       const getPolygonByName = (name) => {
         for (let polygon of state.polygons) {
           if (polygon.name == name) {
@@ -170,7 +170,7 @@ const canvasSlice = createSlice({
           }
         }
       }
-      
+
       let polygon = getPolygonByName(actions.name);
       polygon.color = actions.color;
     },
@@ -182,7 +182,7 @@ const canvasSlice = createSlice({
           }
         }
       }
-      
+
       let polygon = getPolygonByName(actions.name);
       polygon.mode = actions.mode;
     }
@@ -205,7 +205,7 @@ const configSlice = createSlice({
       stopStartButton: 0,
       settingsButton: 0
     },
-    innerFrame:{
+    innerFrame: {
       left: 100,
       top: 50,
       width: 1100,
@@ -213,7 +213,7 @@ const configSlice = createSlice({
     },
     dragBarsWidth: 10,
     arrowHeight: 80,
-    treeView:{
+    treeView: {
       height: 80,
       fontSize: 20
     },
@@ -221,7 +221,7 @@ const configSlice = createSlice({
     leftSlideDefaultWidth: 300
   },
   reducers: {
-    updateConfig: (state, actions) =>{     
+    updateConfig: (state, actions) => {
       state.radius = actions.payload.radius;
       state.innerFrame = actions.payload.innerFrame;
       state.dragBarsWidth = actions.payload.dragBarsWidth;
@@ -234,8 +234,28 @@ const configSlice = createSlice({
 });
 
 
+// const handleWSMessage = createSlice({
+//   name: "message",
+//   initialState: { type: null, values: null },
+//   reducers : {
+//     requestScreenParams(){
+
+//     },
+//     updateTree(){
+
+//     },
+//     drawOnCanvas(){
+
+//     },
+//     handleIMMessage(){
+
+//     }
+//   }
+
+// });
+
 const store = configureStore({
-  reducer: { 
+  reducer: {
     leftSlide: leftSlideSlice.reducer,
     rightSlide: rightSlideSlice.reducer,
     bottomSlide: bottomSlideSlice.reducer,
