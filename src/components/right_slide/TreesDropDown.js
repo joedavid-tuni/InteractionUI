@@ -59,10 +59,10 @@ const TreesDropDown = () => {
   const [selectedId, setSelectedId] = useState(1);
 
   useEffect(() => {
-    loastTreeList();
+    loadTreeList();
   }, [])
 
-  const loastTreeList = () => {
+  const loadTreeList = () => {
     setTimeout(() => {
       // This is where we fetch the list of trees
       const tree = [

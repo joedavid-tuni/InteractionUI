@@ -1,13 +1,17 @@
 import OuterFrame from './components/OuterFrame';
 import ModalOverlay from './components/ModalOverlay';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { blinkingActions, canvasActions, rightSlideActions, imPanelActions, configActions } from './store/index';
+import WSContext from './store/ws-context';
+import {WSContextProvider} from './store/ws-context';
+import useSocket from './hooks/use-socket';
 
 function App() {
   const tree = useSelector((state) => state.rightSlide.tree);
   const dispatch = useDispatch();
   const [socket, setSocket] = useState();
+  const ws = useSocket();
 
   useEffect(() => {
     blinking();
@@ -75,13 +79,13 @@ function App() {
   }
 
   useEffect(() => {
-    let s = new WebSocket("ws://127.0.0.1:8887");
+    // let s = new WebSocket("ws://127.0.0.1:8887");
 
-    s.onopen = function(e) {
+    ws.onopen = function(e) {
       console.log("[open] Connection established with Server");
     };
   
-    s.onclose = function(event) {
+    ws.onclose = function(event) {
       if (event.wasClean) {
         alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
       } else {
@@ -89,17 +93,18 @@ function App() {
       }
     };
   
-    s.onerror = function(error) {
+    ws.onerror = function(error) {
       alert(`[error] ${error.message}`);
     };
 
-    setSocket(s);
+    setSocket(ws);
   }, [])
   
   useEffect (() => {
     if (socket == undefined) return;
 
     socket.onmessage = function(event) {  
+      console.log(event.data);
       let msgOBJ = JSON.parse(event.data);
 
       switch (msgOBJ.type) {
@@ -163,10 +168,10 @@ function App() {
   
 
   return (
-    <>
+    <WSContextProvider >
       <OuterFrame socket={socket}/>
       <ModalOverlay></ModalOverlay>
-    </>
+    </WSContextProvider>
   );
 }
 
