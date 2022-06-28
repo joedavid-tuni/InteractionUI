@@ -9,12 +9,11 @@ import {WSContextProvider} from './store/ws-context';
 import useSocket from './hooks/use-socket';
 
 function App() {
-  const tree = useSelector((state) => state.rightSlide.tree);
-  const dispatch = useDispatch();
-  // const [socket, setSocket] = useState();
-  // const [isReady, msg, socket] = useSocket();
-  const [isOpen, msg, socket] = useSocket()
 
+  const dispatch = useDispatch();
+
+  const [, , socket] = useSocket();
+ 
   useEffect(() => {
     blinking();
     updateConfig();
@@ -65,7 +64,7 @@ function App() {
   
 
   return (
-    <WSContextProvider >
+    <WSContextProvider value = {socket}>
       <OuterFrame />
       <ModalOverlay></ModalOverlay>
     </WSContextProvider>

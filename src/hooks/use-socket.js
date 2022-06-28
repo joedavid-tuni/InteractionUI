@@ -22,12 +22,12 @@ const useSocket = () => {
         console.log("Running UseEFFECT")
         // const socket = new WebSocket("ws://127.0.0.1:8887");
 
-        socket.onopen = function (e) {
+        socket.onopen = e => {
             console.log("[open] Connection established with Server");
             setIsOpen(true);
         };
 
-        socket.onclose = function (event) {
+        socket.onclose = event =>{
             if (event.wasClean) {
                 alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
             } else {
@@ -36,11 +36,11 @@ const useSocket = () => {
             setIsOpen(false);
         };
 
-        socket.onerror = function (error) {
+        socket.onerror = error => {
             alert(`[error] ${error.message}`);
         };
 
-        socket.onmessage = function (event) {
+        socket.onmessage = event => {
             let msgOBJ = JSON.parse(event.data);
             console.log("Message Received")
 
