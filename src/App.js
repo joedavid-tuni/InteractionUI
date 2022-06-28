@@ -6,13 +6,13 @@ import { blinkingActions } from './store/blinking_slice';
 import { configActions } from './store/config_slice';
 import WSContext from './store/ws-context';
 import {WSContextProvider} from './store/ws-context';
-import useSocket from './hooks/use-socket';
+// import WSContext from './store/ws-context';
 
 function App() {
 
   const dispatch = useDispatch();
 
-  const [, , socket] = useSocket();
+  const val = useContext(WSContext);
  
   useEffect(() => {
     blinking();
@@ -64,7 +64,7 @@ function App() {
   
 
   return (
-    <WSContextProvider value = {socket}>
+    <WSContextProvider value = {val}>
       <OuterFrame />
       <ModalOverlay></ModalOverlay>
     </WSContextProvider>

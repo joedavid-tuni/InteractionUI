@@ -2,7 +2,8 @@ import './ImPanel.css';
 import ActionButton from './ActionButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { messageDrawerActions } from '../../store/messagedrawer_slice';
-import useSocket from '../../hooks/use-socket';
+import WSContext from '../../store/ws-context';
+import { useContext } from 'react';
 
 const imClasses = [
   {name: "class 1", bg: "linear-gradient(rgb(214, 228, 252), rgb(128, 192, 255))", optionButtons: [{id: 1, text: "option 1"}, {id: 2, text: "option 2"}, {id: 3, text: "option 3"}]},
@@ -15,7 +16,7 @@ const ImPanel = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.imPanel.isOpen);
   const imData = useSelector((state) => state.imPanel.imData)
-  const [isReady, msg, socket] = useSocket()
+  const [isReady, msg, socket] = useContext(WSContext)
 
   const optionButtonClickHandler = (id) => {
     console.log(id)

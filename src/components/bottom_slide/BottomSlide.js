@@ -4,10 +4,10 @@ import ReceiverButton from './ReceiverButton';
 import TaskButton from './TaskButton';
 import SendButton from './SendButton';
 import CancelButton from './CancelButton';
-import { useEffect, useState } from 'react';    
+import { useContext, useEffect, useState } from 'react';    
 import { useDispatch, useSelector } from 'react-redux';
 import { interactionActions } from '../../store/interactiondrawer_slice';
-import useSocket from '../../hooks/use-socket';
+import WSContext from '../../store/ws-context';
  
 const BottomSlide = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const BottomSlide = () => {
   const [taskList, setTaskList] = useState([]);
   const [taskComponents, setTaskComponents] = useState();
   const [isFloatOut, setIsFloatOut] = useState(false);
-  const [isReady, msg, socket] = useSocket()
+  const [isReady, msg, socket] = useContext(WSContext)
   const changeCaIndex = (index) => {
     setCaIndex(index)
   }
