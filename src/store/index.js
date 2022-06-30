@@ -7,6 +7,7 @@ import interactionReducer from './interactiondrawer_slice'
 import leftDrawerReducer from './leftdrawer_slice';
 import rightDrawerReducer from './rightdrawer_slice';
 import messageDrawerReducer from './messagedrawer_slice';
+import workplanReducer from './workplan-slice';
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     blinking: blinkingReducer,
     canvas: canvasReducer,
     config: configReducer,
+    workplan: workplanReducer
   }
 });
 

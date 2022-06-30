@@ -1,7 +1,7 @@
 import OuterFrame from './components/OuterFrame';
 import ModalOverlay from './components/ModalOverlay';
-import { useDispatch, useSelector } from 'react-redux';
-import { useContext, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useContext, useEffect } from 'react';
 import { blinkingActions } from './store/blinking_slice';
 import { configActions } from './store/config_slice';
 import WSContext from './store/ws-context';

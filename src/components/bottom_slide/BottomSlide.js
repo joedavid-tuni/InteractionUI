@@ -18,7 +18,7 @@ const BottomSlide = () => {
   const [taskList, setTaskList] = useState([]);
   const [taskComponents, setTaskComponents] = useState();
   const [isFloatOut, setIsFloatOut] = useState(false);
-  const [isReady, msg, socket] = useContext(WSContext)
+  const [, , socket] = useContext(WSContext)
   const changeCaIndex = (index) => {
     setCaIndex(index)
   }
@@ -32,9 +32,9 @@ const BottomSlide = () => {
       setIsFloatOut(false);
       //Fetch tasks here
       setTimeout(() => {
-        if (caIndex == 1 && receiverIndex == 1) {
+        if (caIndex === 1 && receiverIndex === 1) {
           setTaskList([{name: "Task 1", id: 1, isSelected: false}])
-        } else if (caIndex == 2 && receiverIndex == 2) {
+        } else if (caIndex === 2 && receiverIndex === 2) {
           setTaskList([{name: "Task 1", id: 2, isSelected: false}, {name: "Task 2", id: 3, isSelected: false}, {name: "Task 3", id: 4, isSelected: false}, {name: "Task 4", id: 5, isSelected: false}])
         } else {
           setTaskList([]);
@@ -59,7 +59,7 @@ const BottomSlide = () => {
     let tempTaskList = JSON.parse(JSON.stringify(taskList));
     
     for (let task of tempTaskList) {
-      if (task.id == id) {
+      if (task.id === id) {
         task.isSelected = !task.isSelected;
       }
     }

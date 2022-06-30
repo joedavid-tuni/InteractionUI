@@ -1,23 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const rightDrawerSlice = createSlice({
-    name: "rightSlide",
-    initialState: {
-      isOpen: false,
-      tree: []
+  name: "rightSlide",
+  initialState: {
+    isOpen: false,
+    tree: []
+  },
+  reducers: {
+    open(state) {
+      state.isOpen = true;
     },
-    reducers: {
-      open(state) {
-        state.isOpen = true;
-      },
-      close(state) {
-        state.isOpen = false;
-      },
-      setTree(state, actions) {
-        state.tree = actions.payload;
-      }
+    close(state) {
+      state.isOpen = false;
+    },
+    setTree(state, actions) {
+      state.tree = actions.payload;
     }
-  });
+  }
+});
 
 export const rightDrawerActions = rightDrawerSlice.actions;
-  export default rightDrawerSlice.reducer;
+export default rightDrawerSlice.reducer;

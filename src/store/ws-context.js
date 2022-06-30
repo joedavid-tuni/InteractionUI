@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { rightDrawerActions } from "../store/rightdrawer_slice";
 import { canvasActions } from "../store/canvas_slice";
 import { messageDrawerActions } from "../store/messagedrawer_slice";
+import { workplanActions } from './workplan-slice';
 import fetchScreenParams from '../utils/screenparams';
 
 
-const WSContext = React.createContext(false, null, ()=>{});
+const WSContext = React.createContext(false, null, () => { });
 
 console.log("Context Ran")
 
@@ -33,7 +34,7 @@ export const WSContextProvider = (props) => {
             setIsOpen(true);
         };
 
-        socket.onclose = event =>{
+        socket.onclose = event => {
             if (event.wasClean) {
                 alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
             } else {
@@ -99,19 +100,23 @@ export const WSContextProvider = (props) => {
                     dispatch(messageDrawerActions.setImData(msgOBJ));
                     dispatch(messageDrawerActions.open());
                     return;
+
+                case "workplans":
+                    dispatch(workplanActions.setWorkplan(msgOBJ.values))
+
             }
             console.log(msgOBJ)
         };
 
         ws.current = socket;
 
-        
 
-        return () => {
-            socket.close();
-        }; 
 
-    },[])
+        // return () => {
+        //     socket.close();
+        // };
+
+    }, [])
 
 
 

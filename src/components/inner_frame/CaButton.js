@@ -1,14 +1,14 @@
 import './CaButton.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { interactionActions } from '../../store/interactiondrawer_slice';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import Radius from '../Radius';
-import WSContext from '../../store/ws-context';
+// import WSContext from '../../store/ws-context';
 
 const CaButton = () => {
   const radius = useSelector((state) => state.config.radius.caButton);
   const ref = useRef(null);
-  const [isOpen, msg, socket] = useContext(WSContext);
+  // const [, , socket] = useContext(WSContext);
 
   const dispatch = useDispatch();
 

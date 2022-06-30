@@ -16,7 +16,7 @@ const ImPanel = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.imPanel.isOpen);
   const imData = useSelector((state) => state.imPanel.imData)
-  const [isReady, msg, socket] = useContext(WSContext)
+  const [, , socket] = useContext(WSContext)
 
   const optionButtonClickHandler = (id) => {
     console.log(id)
@@ -30,10 +30,10 @@ const ImPanel = () => {
   let optionButtons = [];
   let bg = "";
   const selectClass = () => {
-    if (imData.class == undefined) return;
+    if (imData.class === undefined) return;
 
     for (let cls of imClasses) {
-      if (cls.name == imData.class) {
+      if (cls.name === imData.class) {
         bg = cls.bg;
         optionButtons = cls.optionButtons.map(button =>
           <ActionButton clickHandler={optionButtonClickHandler} key={button.id} id={button.id} text={button.text} buttonsCount={cls.optionButtons.length}></ActionButton>
