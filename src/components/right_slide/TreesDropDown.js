@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { rightDrawerActions } from '../../store/rightdrawer_slice';
 import WSContext from '../../store/ws-context';
 import config from '../../config/config.json'
-import { getBasicSelectQuery } from '../../utils/SPARQLQueryBuilder';
+import { getBasicSelectWithIDQuery } from '../../utils/SPARQLQueryBuilder';
+import {pnml} from '../../config/case';
 
 const dummyTree1 = [
   {
@@ -75,14 +76,13 @@ const TreesDropDown = () => {
   const [isReady, , socket] = useContext(WSContext);
 
   useEffect(() => {
-    // This is where we fetch the list of trees
+
     if (isReady) {
       console.log("[Product WorkPlan] Fetching ... ");
-      console.log(getBasicSelectQuery())
 
       const sendRequest = async () => {
         const url = new URL("http://" + config.KBEPlatform.IP + ":" + config.KBEPlatform.KBPort + "/ds/query");
-        const params = { 'query': getBasicSelectQuery('*', '?s', 'a', 'camo:ProductWorkPlan'), 'default-graph-uri': encodeURI(config.KBEPlatform.KBGraphURI) }
+        const params = { 'query': getBasicSelectWithIDQuery('*', '?s', 'a', 'camo:ProductWorkPlan'), 'default-graph-uri': encodeURI(config.KBEPlatform.KBGraphURI) }
         url.search = new URLSearchParams(params).toString();
         const options = {
           method: 'POST',
@@ -93,15 +93,15 @@ const TreesDropDown = () => {
           // body: params
         }
         const response = await fetch(url, options);
+        console.log(response)
         const data = await response.json();
-        console.log(data.results.bindings)
+        console.log(data.results)
         const workplans = data.results.bindings.map((workplan) => {
           return {
-            id: Math.random(),  // replace by proper ID from KB
-            title: workplan.s.value.split('#').slice(-1)[0].replaceAll('_', ' ')
+            id: workplan.id.value,  // replace by proper ID from KB
+            title: workplan.s.value.split('#').slice(-1)[0].replaceAll('_', ' ') // TODO: outsource this to a utility function
           }
         })
-        console.log(workplans);
         setTreeList (workplans)
         
       }
@@ -150,11 +150,33 @@ const TreesDropDown = () => {
   }, [treeList])
 
   const onSelectChange = (e) => {
+    console.log("Selected ID", e.target.value)
     setSelectedId(e.target.value);
   }
 
   useEffect(() => {
     //Load new tree here based on selectedID
+
+    const fetchProductionTasks = () => {
+
+      fetch('http://127.0.0.1:3005/'+selectedId,{
+        method: 'GET',
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        // body: params
+      }).then((response)=>  response.text())
+      .then((response)=>{console.log(response)
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(response,"text/xml");
+        console.log(xml)
+      })
+    }
+    fetchProductionTasks();
+    
+
+
+    // console.log(response.text());S
     setTimeout(() => {
       let t = [];
 

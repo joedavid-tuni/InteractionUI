@@ -16,7 +16,7 @@ function App() {
  
   useEffect(() => {
     blinking();
-    updateConfig();
+    // updateConfig();
   }, [])
 
   const updateConfig = () => {

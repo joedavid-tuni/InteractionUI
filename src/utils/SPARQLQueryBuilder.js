@@ -11,4 +11,15 @@ export const getBasicSelectQuery = (r = "*", s = '?s', p = 'a', o = '?o') => {
 
     return query;
 
+}
+
+export const getBasicSelectWithIDQuery = (r = "*", s = '?s', p = 'a', o = '?o') => {
+    const query = "PREFIX camo:<" + DEFAULT_GRAPH_URI + "#> " +
+        "SELECT " + r +
+        " WHERE { " +
+        s + " " + p + " " + o + "." +
+        s + " camo:UID " + "?id" + ".}"
+
+    return query;
+
 } 
