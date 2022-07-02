@@ -5,7 +5,9 @@ import { rightDrawerActions } from '../../store/rightdrawer_slice';
 import WSContext from '../../store/ws-context';
 import config from '../../config/config.json'
 import { getBasicSelectWithIDQuery } from '../../utils/SPARQLQueryBuilder';
-import {pnml} from '../../config/case';
+import { pnml } from '../../config/case';
+import PnmlImporter from '../../utils/pm4js/importer/importer';
+import { PetriNetTransition, PetriNetArc, PetriNetPlace } from '../../utils/pm4js/petri_net';
 
 const dummyTree1 = [
   {
@@ -66,6 +68,25 @@ const dummyTree3 = [
     ]
   }
 ];
+const expectedTree = [
+  {
+    name: "EngineBlock", key: "30", state: "initial", items: [
+      {
+        name: "AssembleRods", key: "32", state: "attention needed", items: [
+          { name: "Assemble Rocker Arm Shaft", key: "32", state: "attention needed" }]
+      },
+      {
+        name: "Assemble Engine Block Frame", key: "22", state: "attention needed", items: [
+          { name: "Assemble Rocker Arm Shaft", key: "32", state: "attention needed" }]
+      },
+      {
+        name: "AssembleRockerArm", key: "12", state: "attention needed", items: [
+          { name: "Assemble Rocker Arm Shaft", key: "32", state: "attention needed" }]
+      }
+
+    ]
+  }
+]
 
 const TreesDropDown = () => {
   const height = useSelector((state) => state.config.treeView.height);
@@ -74,11 +95,14 @@ const TreesDropDown = () => {
   const [treeOptions, setTreeOptions] = useState();
   const [selectedId, setSelectedId] = useState(1);
   const [isReady, , socket] = useContext(WSContext);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
 
     if (isReady) {
       console.log("[Product WorkPlan] Fetching ... ");
+
+      setError(null); //TODO: take care of errors in this block later
 
       const sendRequest = async () => {
         const url = new URL("http://" + config.KBEPlatform.IP + ":" + config.KBEPlatform.KBPort + "/ds/query");
@@ -102,8 +126,8 @@ const TreesDropDown = () => {
             title: workplan.s.value.split('#').slice(-1)[0].replaceAll('_', ' ') // TODO: outsource this to a utility function
           }
         })
-        setTreeList (workplans)
-        
+        setTreeList(workplans)
+
       }
 
       sendRequest();
@@ -157,37 +181,132 @@ const TreesDropDown = () => {
   useEffect(() => {
     //Load new tree here based on selectedID
 
-    const fetchProductionTasks = () => {
+    let xmlDoc;
+    const parser = new DOMParser();
+    setError(null);
 
-      fetch('http://127.0.0.1:3005/'+selectedId,{
+    const fetchProductionTasks = () => {
+      let t = [];
+      fetch('http://127.0.0.1:3005/' + selectedId, {
         method: 'GET',
         headers: {
           'content-type': 'application/x-www-form-urlencoded'
         },
-        // body: params
-      }).then((response)=>  response.text())
-      .then((response)=>{console.log(response)
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(response,"text/xml");
-        console.log(xml)
-      })
+      }).then((response) => {
+        if (response.ok) {
+          return response.text()
+        }
+        throw new Error('Error fetching')
+      }).then((response) => {
+        // console.log(response);
+
+        let acceptingPetriNet = PnmlImporter.apply(response);
+        console.log(acceptingPetriNet.im.getEnabledTransitions());
+        console.log(acceptingPetriNet.im.getEnabledTransitions()[0].getPostMarking());
+        let enabledTransitions = acceptingPetriNet.im.getEnabledTransitions();
+
+        let tempObj;
+        function createObj(PNObj) {
+
+          let term = false;
+          if (PNObj instanceof PetriNetTransition) {
+            console.log("Transition Block", PNObj.label, PNObj.name);
+            let outArcs = PNObj.outArcs;
+            for (const arcKey of Object.keys(outArcs)) {
+              
+              if(term == true){
+                term = { name: PNObj.label, key: PNObj.name, state: "initial" };
+                return term;
+              }
+              else if (term.constructor == Array){
+                return { name: PNObj.label, key: PNObj.name, state: "initial", items: term }
+              }
+              if((typeof term == "object") && (term.constructor != Array)){
+                return [term];
+              }
+              
+              term = createObj(outArcs[arcKey]);
+            }
+          }
+
+          else if (PNObj instanceof PetriNetArc) {
+            let term = false;
+            console.log("Arc Block:", PNObj.toString());
+            let connNode = PNObj.target;
+            // for (const nodeKey of Object.keys(connNode)) {
+            term = createObj(connNode);
+            return term;
+            // }
+
+          }
+
+          else if (PNObj instanceof PetriNetPlace) {
+            let term = false;
+            console.log("Place Block", PNObj.name);
+            let outArcs = PNObj.outArcs;
+            if (Object.keys(outArcs).length > 0) {
+
+              for (const arcKey of Object.keys(outArcs)) {
+                term = createObj(outArcs[arcKey]);
+                return term;
+              }
+
+            }
+
+            else{
+              // terminal place
+              term = true;
+              return term;
+            }
+          }
+          return term;
+        }
+
+
+        for (const transition of enabledTransitions) {
+          t.push(createObj(transition))
+        }
+        console.log(t);
+
+        dispatch(rightDrawerActions.setTree(expectedTree));
+        // console.log(acceptingPetriNet.im.getEnabledTransitions());
+
+        // xmlDoc = parser.parseFromString(response, "text/xml");
+        // console.log(xmlDoc);
+        // let arrP = [...xmlDoc.getElementsByTagName("place")];
+        // let arrT = [...xmlDoc.getElementsByTagName("transition")];
+        // let arrA = [...xmlDoc.getElementsByTagName("arc")];
+
+        // // finding the place with the intial marking
+        // let arrTemp= arrP.filter((place)=>{
+        //   let children = [...place.children]
+        //   for (const child of children){
+        //     if (child.localName  =='initialMarking'){ // && child.xxxValue == 1
+        //       return true;
+        //     }
+        //   }
+
+
+        // })
+        // console.log(arrTemp);
+
+      }).catch(error => console.log(error))
     }
     fetchProductionTasks();
-    
 
 
     // console.log(response.text());S
-    setTimeout(() => {
-      let t = [];
 
-      if (selectedId == 1) { t = dummyTree1; }
-      if (selectedId == 2) { t = dummyTree2; }
-      if (selectedId == 3) { t = dummyTree3; }
 
-      dispatch(rightDrawerActions.setTree(t));
-    }, 1000);
 
-    dispatch(rightDrawerActions.setTree([]));
+
+    // if (selectedId == 1) { t = dummyTree1; }
+    // if (selectedId == 2) { t = dummyTree2; }
+    // if (selectedId == 3) { t = dummyTree3; }
+
+
+
+    // dispatch(rightDrawerActions.setTree([]));
   }, [selectedId])
 
   return (
