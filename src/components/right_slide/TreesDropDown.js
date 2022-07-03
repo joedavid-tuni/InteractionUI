@@ -205,70 +205,243 @@ const TreesDropDown = () => {
         console.log(acceptingPetriNet.im.getEnabledTransitions()[0].getPostMarking());
         let enabledTransitions = acceptingPetriNet.im.getEnabledTransitions();
 
-        let tempObj;
+        let enabledTransition;
+        let tempArr = [];
+        let tempArr2 = [];
+        let tempObj = {};
+        let visitedNodes = [];
+
         function createObj(PNObj) {
 
+          // enabledTransition = PNObj.label;
           let term = false;
+
+          // APPROACH:  BACKWARD PROPOGATION, TRYING BY TYPE OF VALUE RETURNED
+          // if (PNObj instanceof PetriNetTransition) {
+
+          //   console.log("Transition Block", PNObj.label, PNObj.name);
+          //   let outArcs = PNObj.outArcs;
+
+          // for (const arcKey of Object.keys(outArcs)) {
+          //   term = createObj(outArcs[arcKey]);
+          //   if ((term == true) && (typeof term == "boolean")) {
+          //     term = { name: PNObj.label, key: PNObj.name, state: "initial" };
+          //     if (enabledTransition != PNObj.label) {
+
+          //       return term;
+          //     }
+          //     else {
+          //       tempObj.push(term);
+          //       continue;
+          //     }
+          //   }
+          //   else if (term.constructor == Array) {
+          //     term = { name: PNObj.label, key: PNObj.name, state: "initial", items: term }
+          //     if (enabledTransition != PNObj.label) {
+          //       return term;
+          //     }
+          //     else {
+          //       tempObj.push(term);
+          //       continue;
+          //     }
+          //   }
+          //   else if ((typeof term == "object") && (term.constructor != Array)) {
+          //     term = [term]
+          //     if (enabledTransition != PNObj.label) {
+
+          //       return term;
+          //     }
+          //     else {
+          //       tempObj.push(term);
+          //       continue;
+          //     }
+          //   }
+
+          // }
+
+          //   // APPROACH:  BACKWARD PROPOGATION, TRYING BY TYPE RETURNING VISTED OBJECT
+          //   let outArcs = PNObj?.outArcs; // going to be undefined for PetriNet Arcs
+          //   let noOutArcs = 0;
+          //   if (outArcs != null) {
+          //     noOutArcs = Object.entries(outArcs).length;
+          //   }
+
+          //   //maybe reset tempArr here?
+
+          //   for (const [index, [arcKey, arcValue]] of Object.entries(Object.entries(outArcs))) {
+          //     if (PNObj instanceof PetriNetTransition) {
+
+          //       console.log("Transition Block", PNObj.label, PNObj.name);
+
+          //       // if (visitedNodes.includes(PNObj.name)) {
+          //       //   continue;
+
+          //       // }
+
+          //       // else { //not visited before
+
+          //       visitedNodes = visitedNodes.push(PNObj.label);
+          //       term = createObj(outArcs[arcKey]);
+          //       let obj = { name: PNObj.label, key: PNObj.name, state: "initial" }
+
+          //       if (index + 1 == noOutArcs) { // no more parallel arcs
+          //         // let ret = tempArr.push(obj);
+          //         // tempArr = []
+          //         return { ...obj, items: term };
+          //       }
+
+          //       else {  // more parallel arcs to traverse
+          //         tempArr.push(obj);
+          //         continue;
+
+          //       }
+
+
+          //       // return { obj, items: terms };
+
+          //       // if (visitedNodes.includes(term.key)) {
+          //       //   tempObj = {...tempObj, items: { name: PNObj.label, key: PNObj.name, state: "initial" }}
+          //       //   return tempObj;
+          //       // }
+          //       // else {
+          //       //   continue;
+          //       // }
+
+          //       // }
+
+          //     }
+
+          //     else if (PNObj instanceof PetriNetArc) {
+          //       let term = false;
+          //       console.log("Arc Block:", PNObj.toString());
+          //       let connNode = PNObj.target;
+          //       term = createObj(connNode);
+          //       return term;
+          //     }
+
+          //     else if (PNObj instanceof PetriNetPlace) {
+          //       let term = false;
+          //       console.log("Place Block", PNObj.name);
+
+          //       if (Object.keys(outArcs).length > 0) {
+
+          //         for (const arcKey of Object.keys(outArcs)) {
+          //           term = createObj(outArcs[arcKey]);
+          //           return term;
+          //         }
+
+          //       }
+
+          //       else {
+          //         // terminal place
+          //         term = {};
+          //         return null;
+          //       }
+          //     }
+          //     return term;
+          //   }
+          // }
+        }
+        //APPROACH: not taking into account that you are passing a transition first
+        function createObj2(PNObj) {
           if (PNObj instanceof PetriNetTransition) {
-            console.log("Transition Block", PNObj.label, PNObj.name);
-            let outArcs = PNObj.outArcs;
-            for (const arcKey of Object.keys(outArcs)) {
-              
-              if(term == true){
-                term = { name: PNObj.label, key: PNObj.name, state: "initial" };
-                return term;
+            let outArcs = PNObj.outArcs; // going to be undefined for PetriNet Arcs
+            let noOutArcs = Object.entries(outArcs).length;
+
+            for (const [index, [arcKey,]] of Object.entries(Object.entries(outArcs))) {
+              let term = createObj2(outArcs[arcKey]);
+
+              let obj = { name: PNObj.label, key: PNObj.name, state: "initial" }
+
+              if ((parseInt(index) + 1) == noOutArcs) { // no more parallel arcs
+                // let ret = tempArr.push(obj);
+                // tempArr = []
+                if (term != null) tempArr2.push(term);
+                // if(tempArr.length>0){
+                //   tempArr2 = [...tempArr, ...tempArr2]
+                // }
+
+                let ret;
+                if (noOutArcs > 1) { // if this was a transition with multiple branches
+                  ret = { ...obj, items: [...tempArr, ...tempArr2] }; // 1st fallback:{ name: PNObj.label, key: PNObj.name, state: "initial", items: [] }
+                }
+                else {
+
+                  ret = { ...obj, items: tempArr2 }
+
+                }
+                tempArr2 = [];                             //2nd fallback: { , items: name: PNObj.label, key: PNObj.name, state: "initial", items: null }
+                return ret;
               }
-              else if (term.constructor == Array){
-                return { name: PNObj.label, key: PNObj.name, state: "initial", items: term }
+
+              else {  // more parallel arcs to traverse
+                tempArr.push(term);
               }
-              if((typeof term == "object") && (term.constructor != Array)){
-                return [term];
-              }
-              
-              term = createObj(outArcs[arcKey]);
+
+
             }
+
+
           }
 
           else if (PNObj instanceof PetriNetArc) {
             let term = false;
             console.log("Arc Block:", PNObj.toString());
             let connNode = PNObj.target;
-            // for (const nodeKey of Object.keys(connNode)) {
-            term = createObj(connNode);
+            term = createObj2(connNode);
             return term;
-            // }
 
           }
 
           else if (PNObj instanceof PetriNetPlace) {
             let term = false;
-            console.log("Place Block", PNObj.name);
-            let outArcs = PNObj.outArcs;
-            if (Object.keys(outArcs).length > 0) {
+            let outArcs = PNObj.outArcs; // going to be undefined for PetriNet Arcs
+            let noOutArcs = Object.entries(outArcs).length;
+
+            if (noOutArcs > 0) { // not terminal place
 
               for (const arcKey of Object.keys(outArcs)) {
-                term = createObj(outArcs[arcKey]);
+                term = createObj2(outArcs[arcKey]);
                 return term;
               }
 
             }
 
-            else{
+            else {
               // terminal place
-              term = true;
-              return term;
+              term = {};
+              return null;
             }
           }
-          return term;
         }
+        const expectedTree = [
+          {
+            name: "EngineBlock", key: "30", state: "initial", items: [
+              {
+                name: "AssembleRods", key: "32", state: "attention needed", items: [
+                  { name: "Assemble Rocker Arm Shaft", key: "32", state: "attention needed" }]
+              },
+              {
+                name: "Assemble Engine Block Frame", key: "22", state: "attention needed", items: [
+                  { name: "Assemble Rocker Arm Shaft", key: "32", state: "attention needed" }]
+              },
+              {
+                name: "AssembleRockerArm", key: "12", state: "attention needed", items: [
+                  { name: "Assemble Rocker Arm Shaft", key: "32", state: "attention needed" }]
+              }
 
+            ]
+          }
+        ]
 
         for (const transition of enabledTransitions) {
-          t.push(createObj(transition))
+          enabledTransition = transition.label;
+          t.push(createObj2(transition));
+          // createObj2(transition)
         }
         console.log(t);
 
-        dispatch(rightDrawerActions.setTree(expectedTree));
+        dispatch(rightDrawerActions.setTree(t));
         // console.log(acceptingPetriNet.im.getEnabledTransitions());
 
         // xmlDoc = parser.parseFromString(response, "text/xml");
