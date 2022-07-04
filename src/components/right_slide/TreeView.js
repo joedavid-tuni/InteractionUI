@@ -24,7 +24,7 @@ const TreeView = () => {
       tempElements.push(<TreeElement key={element.key} element={element} />);
     }
     if (tempElements.length === 0) {
-      tempElements = <p style={{color: "#fff"}}>Loading...</p>
+      tempElements = <p style={{color: "#fff"}}>No Production Tasks Available. Please select a Workplan from below</p>
     }
 
     setTreeElements(tempElements);
