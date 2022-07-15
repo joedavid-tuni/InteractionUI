@@ -41,6 +41,33 @@
   transform: translateY(-50%);
 }
 
+.IP-container {  
+  left: 16%;
+  width: 10%;
+  height: 70%;
+  top: 50%;
+  -ms-transform: translate(0, -50%);
+  transform: translate( 0, -50%);
+  border: 2px solid #444;
+  border-radius: 10px;
+  background-color: #d8eeff;
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
+
+.IP-text {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  top: 50%;
+  width: 100%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 .ca-container {  
   left: 16%;
   width: 10%;
@@ -105,4 +132,5 @@
   width: 100%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  font-size: x-large;
 }

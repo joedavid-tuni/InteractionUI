@@ -68,7 +68,7 @@
   color: rgb(50, 160, 255);
 }
 .treeview-animated-items .open span {
-  color: rgb(50, 160, 255);
+  color: rgb(255, 255, 255);
 }
 .treeview-animated-items .open:hover > span {
   color: rgb(140, 185, 255);

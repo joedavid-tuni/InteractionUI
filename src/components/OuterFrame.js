@@ -2,7 +2,7 @@ import './OuterFrame.css';
 import InnerFrame from './inner_frame/InnerFrame';
 import Canvas from './canvas/Canvas';
 
-const OuterFrame = ({socket}) => {
+const OuterFrame = () => {
   return (
     <div className='outer-frame'>
       <InnerFrame />

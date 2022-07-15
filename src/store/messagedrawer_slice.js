@@ -4,7 +4,7 @@ const messageDrawerSlice = createSlice({
     name: "imPanel",
     initialState: {
       isOpen: false,
-      imData: {}
+      imData: {type: "",value: ""}
     },
     reducers: {
       open(state) {

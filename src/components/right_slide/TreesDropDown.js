@@ -50,7 +50,7 @@ const TreesDropDown = () => {
         })
         workplans.unshift({
           id: Math.random(),
-          title:"Select Work Plan"
+          title: "Select Work Plan"
         })
         setTreeList(workplans)
 
@@ -131,7 +131,7 @@ const TreesDropDown = () => {
 
         function createObj(PNObj) {
           if (PNObj instanceof PetriNetTransition) {
-            let outArcs = PNObj.outArcs; // going to be undefined for PetriNet Arcs
+            let outArcs = PNObj.outArcs; 
             let noOutArcs = Object.entries(outArcs).length;
 
             for (const [index, [arcKey,]] of Object.entries(Object.entries(outArcs))) {
@@ -146,7 +146,7 @@ const TreesDropDown = () => {
                 let ret;
 
                 if (noOutArcs > 1) { // if this was a transition with multiple branches
-                  ret = { ...obj, items: [...tempArr, ...tempArr2] }; 
+                  ret = { ...obj, items: [...tempArr, ...tempArr2] };
                 }
                 else {
                   ret = { ...obj, items: tempArr2 }
@@ -163,7 +163,6 @@ const TreesDropDown = () => {
 
           else if (PNObj instanceof PetriNetArc) {
             let term = false;
-            console.log("Arc Block:", PNObj.toString());
             let connNode = PNObj.target;
             term = createObj(connNode);
             return term;
@@ -199,7 +198,24 @@ const TreesDropDown = () => {
 
     dispatch(rightDrawerActions.setTree([]));
   }, [selectedId])
-  
+
+  const onRequestCollaborationHandler = () => {
+      
+    const msgObj = {
+        type: 'agent_communication',
+        value: {
+          sender: 'Operator',
+          receiver: 'Robot',
+          communicativeAct: "REQUEST",
+          context: 'Request Collaborative Assembly',
+          payload: selectedId
+        }
+      };
+      socket.send(JSON.stringify(msgObj));
+    
+
+  }
+
   return (
     <div className="trees-dropdown-container" style={{
       height: (100 - height) + "%"
@@ -207,6 +223,7 @@ const TreesDropDown = () => {
       <select onChange={onSelectChange} value={selectedId} className="trees-dropdown" name="trees">
         {treeOptions}
       </select>
+      <button className="button" onClick={onRequestCollaborationHandler}>Request Collaborative Assembly</button>
     </div>
   )
 }

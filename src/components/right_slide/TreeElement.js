@@ -4,11 +4,13 @@ import { useSelector } from 'react-redux';
 
 // List of possible states for the element
 const states = [
-  {name: "initial", backgroundColor: "#004", isBlinking: false},
-  {name: "not started", backgroundColor: "rgba(0, 0, 0, 0)", isBlinking: false},
-  {name: "current", backgroundColor: "#040", isBlinking: true},
-  {name: "completed", backgroundColor: "#040", isBlinking: false},
-  {name: "attention needed", backgroundColor: "#400", isBlinking: true}
+  // {name: "initial", backgroundColor: "#004", isBlinking: false},
+  {name: "initial", backgroundColor: "rgba(0, 0, 0, 0)", isBlinking: false},
+  {name: "in focus", backgroundColor: "#004", isBlinking: true},
+  {name: "performing", backgroundColor: "rgba(255, 162, 51, 0.45)", isBlinking: true},
+  {name: "newly completed", backgroundColor: "rgba(0, 255, 50, 0.45)", isBlinking: true},
+  {name: "completed", backgroundColor: "rgba(0, 255, 50, 0.45)", isBlinking: false},
+  {name: "planned", backgroundColor: "rgba(0, 255, 50, 0.2)", isBlinking: false}
 ];
 
 const TreeElement = (props) => {

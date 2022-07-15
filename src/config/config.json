@@ -7,6 +7,6 @@
     },
     "MainPlatform": {
         "IP": "192.168.1.115",
-        "ServerPort": "8887"
+        "ServerPort": "8888"
     }
 }

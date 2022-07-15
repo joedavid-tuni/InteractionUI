@@ -6,7 +6,6 @@ import { blinkingActions } from './store/blinking_slice';
 import { configActions } from './store/config_slice';
 import WSContext from './store/ws-context';
 import {WSContextProvider} from './store/ws-context';
-// import WSContext from './store/ws-context';
 
 function App() {
 
