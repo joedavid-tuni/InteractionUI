@@ -79,14 +79,14 @@ export const WSContextProvider = (props) => {
                     break;
 
                 case "tree-status-change":
-                    console.log("Tree Status change message received");
+                    // console.log("Tree Status change message received");
                     const updateTreeElement = (t, key, state) => {
                         let element;
                         // Loop through each element in the tree
                         for (let e of t) {
                             if (e.key == key) {
                                 // If key found, update the state
-                                console.log("YIPEEE! Key found 1")
+                                // console.log("YIPEEE! Key found 1")
                                 return e.state = state;
                             }
                             if (e.items.length > 0) {
@@ -94,7 +94,7 @@ export const WSContextProvider = (props) => {
                                 element = updateTreeElement(e.items, key, state);
                                 if (!element == undefined) {
                                     // If key found, update the state
-                                    console.log("YIPEEE! Key found 2")
+                                    // console.log("YIPEEE! Key found 2")
                                     return element.state = state;
                                 }
                             }
@@ -103,15 +103,12 @@ export const WSContextProvider = (props) => {
 
                     // Create a copy of the current tree
                     let tempTree = JSON.parse(JSON.stringify(tree));
-                    console.log("Copy held by temporary tree (BEFORE)");
-                    console.log(tempTree);
 
                     // Update a single element in the tempTree
                     // msgOBJ.key = The unique key of the element to be updated
                     // msgOBJ.state = The updated version of the selected element
                     updateTreeElement(tempTree, msgOBJ.key, msgOBJ.state);
 
-                    console.log("Copy held by temporary tree (AFTER)");
                     console.log(tempTree);
 
                     // Update the original tree with the tempTree
@@ -134,7 +131,7 @@ export const WSContextProvider = (props) => {
 
                     
             }  
-            console.log("Message Received: ", msgOBJ); //intentionally at the end
+            // console.log("Message Received: ", msgOBJ); //intentionally at the end
         };
     }, [tree])
 

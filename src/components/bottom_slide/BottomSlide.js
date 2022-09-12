@@ -4,27 +4,31 @@ import ReceiverButton from './ReceiverButton';
 import TaskButton from './TaskButton';
 import SendButton from './SendButton';
 import CancelButton from './CancelButton';
-import { useContext, useEffect, useState } from 'react';    
+import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { interactionActions } from '../../store/interactiondrawer_slice';
 import WSContext from '../../store/ws-context';
- 
+
+let requestedAndProposedTasks = new Object();
+
 const BottomSlide = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.bottomSlide.isOpen);
-  const [caIndex, setCaIndex] = useState(0);
-  const [receiverIndex, setReceiverIndex] = useState(0);
+  // const [caIndex, setCaIndex] = useState(0);
+  const [protocol, setProtocol] = useState("");
+  const [currentTask, setCurrentTask] = useState({});
   const [fetchTaskTimer, setFetchTaskTimer] = useState();
   const [taskList, setTaskList] = useState([]);
   const [taskComponents, setTaskComponents] = useState();
   const [isFloatOut, setIsFloatOut] = useState(false);
   const [, , socket] = useContext(WSContext)
-  const changeCaIndex = (index) => {
-    setCaIndex(index)
+  const changeProtocolHandler = (protocol) => {
+    setProtocol(protocol)
   }
-  const changeReceiverIndex = (index) => {
-    setReceiverIndex(index)
+  const changeCurrentTask = (taskObj) => {
+    setCurrentTask(taskObj)
   }
+
 
   useEffect(() => {
     clearTimeout(fetchTaskTimer);
@@ -32,32 +36,34 @@ const BottomSlide = () => {
       setIsFloatOut(false);
       //Fetch tasks here
       setTimeout(() => {
-        if (caIndex === 1 && receiverIndex === 1) {
-          setTaskList([{name: "Task 1", id: 1, isSelected: false}])
-        } else if (caIndex === 2 && receiverIndex === 2) {
-          setTaskList([{name: "Task 1", id: 2, isSelected: false}, {name: "Task 2", id: 3, isSelected: false}, {name: "Task 3", id: 4, isSelected: false}, {name: "Task 4", id: 5, isSelected: false}])
+        // console.log("Indices", caIndex, receiverIndex)
+        if (protocol === "propose" && currentTask === 1) {
+          setTaskList([{ name: "Task 1", id: 1, isSelected: false }])
+        } else if (protocol === "request" && currentTask === 2) {
+          setTaskList([{ name: "Task 1", id: 2, isSelected: false }, { name: "Task 2", id: 3, isSelected: false }, { name: "Task 3", id: 4, isSelected: false }, { name: "Task 4", id: 5, isSelected: false }])
         } else {
           setTaskList([]);
         }
-      }, 100);      
+      }, 100);
     }, 1000);
     setTimeout(() => {
       setTaskList([]);
-    }, 500);  
+    }, 500);
     setFetchTaskTimer(timer);
     setIsFloatOut(true);
-  }, [caIndex, receiverIndex])
-  
-  useEffect(() => {    
+  }, [protocol, currentTask])
+
+  useEffect(() => {
+    
     let components = taskList.map((task) => (
-      <TaskButton isFloatOut={isFloatOut} key={task.id} name={task.name} id={task.id} isSelected={task.isSelected} toggle={toggleTask}/>
+      <TaskButton isFloatOut={isFloatOut} key={task.id} name={task.name} id={task.id} isSelected={task.isSelected} toggle={toggleTask} />
     ));
     setTaskComponents(components);
-  }, [taskList, receiverIndex, caIndex, isFloatOut])
+  }, [taskList, currentTask, protocol, isFloatOut])
 
-  const toggleTask = (id) => {  
+  const toggleTask = (id) => {
     let tempTaskList = JSON.parse(JSON.stringify(taskList));
-    
+
     for (let task of tempTaskList) {
       if (task.id === id) {
         task.isSelected = !task.isSelected;
@@ -71,28 +77,51 @@ const BottomSlide = () => {
   }
 
   const sendClick = () => {
-    let selectedTasks = 0;    
+    let _interactionProtocol = "";
+    let selectedTasks = 0;
     for (let task of taskList) {
       if (task.isSelected) {
         selectedTasks += task.id;
       }
     }
+    if (protocol != "Inform") {
+      requestedAndProposedTasks[currentTask.task] = protocol;
+      _interactionProtocol = "fipa-" + protocol.toLowerCase();
+    }
+    else{
+      _interactionProtocol  = requestedAndProposedTasks[currentTask.task];
+    }
+    
+    console.log("IP: ", _interactionProtocol)
+    console.log("CA: ",  protocol.toUpperCase())
 
-    socket.send(JSON.stringify({type: "taskList", values: [receiverIndex, caIndex, selectedTasks]}));
+    // socket.send(JSON.stringify({ type: "agent_communication", value: [currentTask, protocol, selectedTasks] }));
+    socket.send(JSON.stringify({
+      type: "agent_communication",
+      value: {
+        sender: "Operator",
+        receiver: "Robot",
+        context: "Achieve Rational Effect",
+        communicativeAct: protocol.toUpperCase(),
+        interactionProtocol: _interactionProtocol,
+        conversation_id: protocol.toLowerCase() + "_" + currentTask.task,
+        reply_with: protocol + " " + currentTask.task + " reply",
+      }
+    }));
   }
-  
-  let isSendEnabled = false;
+
+  let isSendEnabled = true;//make false to have it when tasks only is selected
   for (let task of taskList) {
     if (task.isSelected && !isFloatOut) {
       isSendEnabled = true;
     }
   }
-  return (    
-    <div className="bottom-slide" style={{bottom: isOpen ? "0%" : "-20%" }}>
+  return (
+    <div className="bottom-slide" style={{ bottom: isOpen ? "0%" : "-20%" }}>
       <div className="select-buttons-container">
-        <ReceiverButton changeReceiverIndex={changeReceiverIndex}></ReceiverButton>
-        <CaButton2 changeCaIndex={changeCaIndex}></CaButton2>
-      </div>    
+        <CaButton2 changeProtocol={changeProtocolHandler}></CaButton2>
+        <ReceiverButton changeCurrentTask={changeCurrentTask} protocol={protocol}></ReceiverButton>
+      </div>
       <div className="tasks-list-container">
         {taskComponents}
       </div>

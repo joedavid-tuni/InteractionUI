@@ -7,6 +7,10 @@
     },
     "MainPlatform": {
         "IP": "192.168.1.115",
-        "ServerPort": "8888"
+        "ServerPort": "8887",
+        "RobotFueski": "3002",
+        "OperatorFuseki": "3001"
     }
+    
+    
 }

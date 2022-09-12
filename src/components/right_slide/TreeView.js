@@ -29,6 +29,12 @@ const TreeView = () => {
 
     setTreeElements(tempElements);
   }, [treeItems]);
+
+  // TODO: write a function to caluclate the amount of tree view elements that have status complete
+
+  const calculateCompleted = ()=>{
+    
+  }
   
   return (
     <div className="tree-container" style={{

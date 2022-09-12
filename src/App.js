@@ -5,14 +5,14 @@ import { useContext, useEffect } from 'react';
 import { blinkingActions } from './store/blinking_slice';
 import { configActions } from './store/config_slice';
 import WSContext from './store/ws-context';
-import {WSContextProvider} from './store/ws-context';
+import { WSContextProvider } from './store/ws-context';
 
 function App() {
 
   const dispatch = useDispatch();
 
   const val = useContext(WSContext);
- 
+
   useEffect(() => {
     blinking();
     // updateConfig();
@@ -34,7 +34,7 @@ function App() {
           stopStartButton: 0,
           settingsButton: 0
         },
-        innerFrame:{
+        innerFrame: {
           left: 135,
           top: 0,
           width: 1561,
@@ -42,14 +42,14 @@ function App() {
         },
         dragBarsWidth: 10,
         arrowHeight: 100,
-        treeView:{
+        treeView: {
           height: 60,
           fontSize: 16
         },
         rightSlideDefaultWidth: 350,
         leftSlideDefaultWidth: 350
       }
-      
+
       dispatch(configActions.updateConfig(configJson));
     }, 6000);
   }
@@ -60,12 +60,12 @@ function App() {
       blinking();
     }, 500);
   }
-  
+
 
   return (
-    <WSContextProvider value = {val}>
-      <OuterFrame />
-      <ModalOverlay></ModalOverlay>
+    <WSContextProvider value={val}>
+        <OuterFrame />
+        <ModalOverlay></ModalOverlay>
     </WSContextProvider>
   );
 }

@@ -67,7 +67,7 @@ const LeftSlide = () => {
         setImgPath("./img1.jpg")
         setSentences(dummySentences);
       } else {
-        setImgPath("./img2.jpg")
+        setImgPath("./img2.png")
         setSentences(dummySentences2);
       }
     }, 1000);

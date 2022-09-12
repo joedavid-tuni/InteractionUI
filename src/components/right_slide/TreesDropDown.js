@@ -39,9 +39,9 @@ const TreesDropDown = () => {
           // body: params
         }
         const response = await fetch(url, options);
-        console.log(response)
+        console.log("response", response)
         const data = await response.json();
-        console.log(data.results)
+        console.log("results", data.results)
         const workplans = data.results.bindings.map((workplan) => {
           return {
             id: workplan.id.value,  // replace by proper ID from KB

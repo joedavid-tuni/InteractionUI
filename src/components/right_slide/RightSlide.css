@@ -1,5 +1,5 @@
 .right-slide {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0);/*rgba(0, 0, 0, 0.6)*/
   right: 0%;
   overflow: visible;
   width: 40%;

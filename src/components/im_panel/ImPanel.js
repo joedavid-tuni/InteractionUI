@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { messageDrawerActions } from '../../store/messagedrawer_slice';
 import WSContext from '../../store/ws-context';
 import { useContext } from 'react';
+import { leftDrawerActions } from '../../store/leftdrawer_slice';
 
 const imClasses = [
   { name: "REQUEST", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 1, text: "Agree" }, { id: 2, text: "Refuse" }, { id: 3, text: "Not Understood" }] },
@@ -13,9 +14,10 @@ const imClasses = [
   { name: "INFORM", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 4, text: "Okay" }] },
   { name: "FAILURE", bg: "linear-gradient(rgb(255, 214, 204), rgb(255, 112, 77))", optionButtons: [{ id: 4, text: "Okay" }] },
   { name: "PROPOSE", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 1, text: "Accept Proposal" }, { id: 2, text: "Reject Proposal" }, { id: 3, text: "Not Understood" }] },
-  { name: "ACCEPT_PROPOSAL", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 1, text: "Okay" }] },
-  { name: "REJECT_PROPOSAL", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 1, text: "Okay" }] },
+  { name: "ACCEPT-PROPOSAL", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 1, text: "Okay" }] },
+  { name: "REJECT-PROPOSAL", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 1, text: "Okay" }] },
   { name: "CANCEL", bg: "linear-gradient(rgb(255, 214, 204), rgb(255, 112, 77))", optionButtons: [{ id: 11, text: "Okay" }] },
+  { name: "CFP", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 12, text: "Inspect" }, { id: 13, text: "Propose" }, { id: 14, text: "Reject" }] }
 ]
 
 // linear-gradient(rgb(214, 228, 252), rgb(128, 192, 255))
@@ -28,26 +30,52 @@ const ImPanel = () => {
 
   const optionButtonClickHandler = (id) => {
     console.log(id)
-    let ca ="";
+    let ca = "";
     for (let option of imClassButtonOptions) {
-      if(id === option.id)
-      ca = option.text;
+      if (id === option.id)
+        ca = option.text;
     }
+    console.log("CA: ", ca);
+    if (ca == "Inspect") {
 
-    dispatch(messageDrawerActions.close());
-    socket.send(JSON.stringify({
-      type: "agent_communication",
-      value: {
-        sender : "Operator",
-        receiver : imData.value.sender,
-        context : "",
-        communicativeAct : ca.replace(" ","-").toUpperCase(),
-        interactionProtocol : imData.value.interactionProtocol,
-        conversation_id : imData.value.conversation_id,
-        reply_with : "",
-        in_reply_to : imData.value.reply_with
-      }
-    }));
+      console.log("Inspect task by opening drawer")
+      dispatch(leftDrawerActions.open())
+
+    }
+    if(ca=="Propose"){
+      dispatch(messageDrawerActions.close());
+      socket.send(JSON.stringify({
+        type: "agent_communication",
+        value: {
+          sender: "Operator",
+          receiver: imData.value.sender,
+          context: "",
+          communicativeAct: ca.replace(" ", "-").toUpperCase(),
+          interactionProtocol: imData.value.interactionProtocol,
+          conversation_id: imData.value.conversation_id,
+          reply_with: "",
+          in_reply_to: imData.value.reply_with,
+          loopbackcontent : imData.value.loopbackcontent
+        }
+      }));
+    }
+    else {
+      dispatch(messageDrawerActions.close());
+      socket.send(JSON.stringify({
+        type: "agent_communication",
+        value: {
+          sender: "Operator",
+          receiver: imData.value.sender,
+          context: "",
+          communicativeAct: ca.replace(" ", "-").toUpperCase(),
+          interactionProtocol: imData.value.interactionProtocol,
+          conversation_id: imData.value.conversation_id,
+          reply_with: "",
+          in_reply_to: imData.value.reply_with,
+          loopbackcontent : imData.value.loopbackcontent
+        }
+      }));
+    }
   }
 
   let optionButtons = [];
@@ -67,9 +95,6 @@ const ImPanel = () => {
         )
       }
     }
-
-
-
   }
   selectClass();
 
@@ -87,7 +112,7 @@ const ImPanel = () => {
         <div className="IP-text">{imData.value.interactionProtocol}</div>
       </div> */}
       <div className="ca-container">
-        <div className="ca-text">{imData.value.communicativeAct}<br/>({imData.value.interactionProtocol})</div>
+        <div className="ca-text">{imData.value.communicativeAct}<br />({imData.value.interactionProtocol})</div>
       </div>
 
       <div className="message-container">
