@@ -70,9 +70,7 @@ export const getCurrentProductionTasksQuery = ()=>{
 
 
 export const getCurrentDesires = ()=>{ // Not used, doesnt follow the same query pattern as Robot
-    const query = getPrefixStatements("camo", "nguri") + 
-    `
-    SELECT ?task ?id
+    const query = getPrefixStatements("camo", "nguri") + `SELECT ?task ?id
     WHERE  { 
         ?task camo:UID ?id 
 
@@ -89,5 +87,16 @@ export const getCurrentDesires = ()=>{ // Not used, doesnt follow the same query
             } 
         }
     }`
+    return query;
+}
+
+export const getIDofProcessPlanOfProductionTask = (productionTask)=> {
+    const query = getPrefixStatements("camo") +
+    `
+    SELECT ?ppid WHERE {
+        camo:`+productionTask+` camo:hasProcessPlan ?pp.
+        ?pp camo:UID ?ppid.
+    }
+    `
     return query;
 }

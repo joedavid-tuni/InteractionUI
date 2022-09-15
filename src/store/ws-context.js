@@ -6,6 +6,7 @@ import { messageDrawerActions } from "../store/messagedrawer_slice";
 import { workplanActions } from './workplan-slice';
 import fetchScreenParams from '../utils/screenparams';
 import config from '../config/config.json'
+import { leftDrawerActions } from './leftdrawer_slice';
 
 
 
@@ -32,20 +33,20 @@ export const WSContextProvider = (props) => {
 
     useEffect(() => {
         console.log("WSContext UseEFFECT ran for OnOpen, onClose and onError events")
-        
+
         socket.onopen = e => {
             console.log("[open] Connection established with Server");
 
             const msgObj = {
                 type: 'identification',
                 value: {
-                  sender: 'InteractionUI',
-                  receiver: 'Server',
-                  context: 'Store my connection',
-                  payload: ''
+                    sender: 'InteractionUI',
+                    receiver: 'Server',
+                    context: 'Store my connection',
+                    payload: ''
                 }
-              };
-              socket.send(JSON.stringify(msgObj));
+            };
+            socket.send(JSON.stringify(msgObj));
 
             // socket.send("InteractionUI")
             setIsOpen(true);
@@ -63,10 +64,10 @@ export const WSContextProvider = (props) => {
         socket.onerror = error => {
             alert(`[error] ${error.message}`);
         };
-        
+
     }, []);
 
-    useEffect( ()=>{
+    useEffect(() => {
         console.log("WSContext UseEFFECT Ran for OnMessage events")
         socket.onmessage = event => {
             let msgOBJ = JSON.parse(event.data);
@@ -115,6 +116,19 @@ export const WSContextProvider = (props) => {
                     dispatch(rightDrawerActions.setTree(tempTree));
 
                     break;
+                case "left-drawer-populate":
+                    // only accept the production task names/id here, 
+                    // its much easier for the MR model to then fetch the processes and
+                    // syntatically make it compatible in JS notation than to do the 
+                    // pre-preprocessing in JAVA by the agent (i guess, lets see 13.09)
+
+                    let prodTask = msgOBJ.productionTask;
+
+                    dispatch(leftDrawerActions.setProductionTask(prodTask));
+
+
+                    
+                    break;
                 case "canvas-polygon-drawing":
                     console.log("Received Canvas Message");
                     dispatch(canvasActions.handleInput(msgOBJ.values));
@@ -129,8 +143,8 @@ export const WSContextProvider = (props) => {
                     dispatch(messageDrawerActions.open());
                     break;
 
-                    
-            }  
+
+            }
             // console.log("Message Received: ", msgOBJ); //intentionally at the end
         };
     }, [tree])

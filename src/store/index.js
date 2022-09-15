@@ -8,10 +8,12 @@ import leftDrawerReducer from './leftdrawer_slice';
 import rightDrawerReducer from './rightdrawer_slice';
 import messageDrawerReducer from './messagedrawer_slice';
 import workplanReducer from './workplan-slice';
+import processDescriptionReducer from './processdescriptiondrawer_slice'
 
 const store = configureStore({
   reducer: {
     leftSlide: leftDrawerReducer,
+    processDescripion : processDescriptionReducer,
     rightSlide: rightDrawerReducer,
     bottomSlide: interactionReducer,
     imPanel: messageDrawerReducer,

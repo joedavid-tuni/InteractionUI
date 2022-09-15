@@ -42,7 +42,7 @@ const ImPanel = () => {
       dispatch(leftDrawerActions.open())
 
     }
-    if(ca=="Propose"){
+    else if(ca=="Propose"){
       dispatch(messageDrawerActions.close());
       socket.send(JSON.stringify({
         type: "agent_communication",

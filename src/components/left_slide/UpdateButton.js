@@ -10,7 +10,7 @@ const UpdateButton = (props) => {
   return (
     <div className="update-button-container" onClick={props.update}>
       <div ref={ref} className="update-button">
-        <div className="update-text">Update</div>
+        <div className="update-text">Fetch Detailed Description</div>
         <Radius radius={radius} parentElement={ref.current}></Radius>
       </div>          
     </div>

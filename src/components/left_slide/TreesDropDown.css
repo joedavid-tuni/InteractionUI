@@ -1,29 +1,28 @@
-.trees-dropdown-container {
+.trees-dropdown-container-left {
   display: inline-block;
   position: absolute;
   margin: 0;
   padding: 0;
-
-  bottom: 0;
-  left: 0;
+  
+  top: 20px;
+  left: 115px;
   width: 60%;
   border: none;
 }
 
-.tree-option {
+.tree-option-left {
   color: #000;
   font-size: 20px;
   background-color: rgba(0, 0, 0, 0);
 }
 
-.trees-dropdown {
+.trees-dropdown-left {
   display: block;
   position: absolute;
   top: 35%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-
   margin: 0;
   padding: 2px;
   width: 90%;
@@ -37,7 +36,7 @@
   z-index: 1;
 }
 
-.button{
+.button-left{
   display: block;
   position: absolute;
   top: 75%;
@@ -46,7 +45,7 @@
   transform: translate(-50%, -50%);
 }
 
-.trees-dropdown:hover, .trees-dropdown:focus {
+.trees-dropdown-left:hover, .trees-dropdown-left:focus {
   border-color: rgb(50, 160, 255);
   box-shadow: 0 0 8px rgb(50, 160, 255);
 }

@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const leftDrawerSlice = createSlice({
   name: "leftSlide",
   initialState: {
-    isOpen: false
+    isOpen: false,
+    productionTask : { },
+    processPlanName: "No Plan selected",
+    processPlan: [],
   },
   reducers: {
     open(state) {
@@ -11,6 +14,15 @@ const leftDrawerSlice = createSlice({
     },
     close(state) {
       state.isOpen = false;
+    },
+    setProductionTask(state, actions){
+      state.productionTask = actions.payload;
+    },
+    setProcessPlanName(state, actions) {
+      state.processPlanName = actions.payload;
+    },
+    setProcessPlan(state, actions) {
+      state.processPlan = actions.payload;
     }
   }
 });

@@ -10,6 +10,7 @@
   cursor: pointer;
   background-color: #000;
   justify-content: center;
+  z-index: 100  ;
 }
 .cover-title {    
   display: inline-block;

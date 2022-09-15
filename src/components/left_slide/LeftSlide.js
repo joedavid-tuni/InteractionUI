@@ -1,8 +1,12 @@
 import './LeftSlide.css';
 import LeftArrow2 from './LeftArrow2';
+import TreeView from './TreeView';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import UpdateButton from './UpdateButton';
+import TreesDropDown from './TreesDropDown'
+import { processDescriptionActions } from '../../store/processdescriptiondrawer_slice';
+import { messageDrawerActions } from '../../store/messagedrawer_slice';
 
 const dummySentences = [{id: 5, text: "Some other sentences"}, {id: 6, text: "This is for the second set of sentences"}, {id: 7, text: "Blah-blah-blah"}]
 const dummySentences2 = [{id: 1, text: "This is a random sentence for the bulleted list."}, {id: 2, text: "This is another sentence for the bulleted list"}, {id: 3, text: "Short sentence"}, {id: 4, text: "This is meant to be a longer sentence, that is going to be displayed in the bulleted list, which can be found in the left slide in section."}
@@ -11,6 +15,7 @@ const dummySentences2 = [{id: 1, text: "This is a random sentence for the bullet
 const LeftSlide = () => {
   const defaultWidth = useSelector((state) => state.config.leftSlideDefaultWidth);
   const isOpen = useSelector((state) => state.leftSlide.isOpen);
+  const dispatch = useDispatch();
   const [width, setWidth] = useState(defaultWidth);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -60,17 +65,43 @@ const LeftSlide = () => {
     document.removeEventListener('mousemove', elementDrag);
     document.removeEventListener('mouseup', closeDragElement);
   }
+    let taskItems = [{
+    Name: "Pick",
+    Role_1: "Bystander",
+    Role_2: "Executor",
+    Description: "Pick the part to be assembled in the product",
+    Modality: "Independent"
+  },
+  {
+    Name: "Pick",
+    Role_1: "Bystander",
+    Role_2: "Executor",
+    Description: "Pick the part to be assembled in the product",
+    Modality: "Independent"
+  },
+  {
+    Name: "Pick",
+    Role_1: "Bystander",
+    Role_2: "Executor",
+    Description: "Pick the part to be assembled in the product",
+    Modality: "Independent"
+  }]
 
   const update = () => {
-    setTimeout(() => {
-      if (imgPath == "./img2.jpg") {
-        setImgPath("./img1.jpg")
-        setSentences(dummySentences);
-      } else {
-        setImgPath("./img2.png")
-        setSentences(dummySentences2);
-      }
-    }, 1000);
+    // setTimeout(() => {
+    //   if (imgPath == "./img2.jpg") {
+    //     setImgPath("./img1.jpg")
+    //     setSentences(dummySentences);
+    //   } else {
+    //     setImgPath("./img2.png")
+    //     setSentences(dummySentences2);
+    //   }
+    // }, 1000);
+
+    dispatch(processDescriptionActions.open())
+
+    // TODO: fetch the process description and do the necessary transformation
+    dispatch(processDescriptionActions.setProcessDescription(taskItems))
   }
 
   return (
@@ -92,16 +123,16 @@ const LeftSlide = () => {
         <img className="img" src={imgPath}></img>
       </div>
 
-      <div className="ul-list-container">
+      {/* <div className="ul-list-container">
         <ul className="ul-list">
           {sentences.map(sentence =>
             <li key={sentence.id}>{sentence.text}</li>
           )}
         </ul>
-      </div>
+      </div> */}
 
       <UpdateButton update={update}></UpdateButton>
-
+      <TreeView></TreeView>
       <LeftArrow2></LeftArrow2>
     </div>
   )

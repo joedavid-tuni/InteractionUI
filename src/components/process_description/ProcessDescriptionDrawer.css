@@ -1,8 +1,7 @@
-.left-slide {
-  background-color: rgba(0, 0, 0, 0.6);
+.pd-drawer{
+  background-color: rgba(0, 0, 0, 0.9);
   left: 0%;
   overflow: visible;
-  width: 30%;
   height: 100%;
   transition: 0.4s;
   top: 0;
@@ -11,7 +10,7 @@
   margin: 0;
   padding: 0;
   border: 1px solid #888;
-  z-index: 10;
+  z-index: 30;
 }
 
 .left-drag-bar {
@@ -26,6 +25,7 @@
   width: 10px;
   right: -5px;
   display: inline-block;
+  z-index: 35;
 }
 
 .left-drag-bar:hover {
@@ -34,7 +34,13 @@
   box-shadow: 0 0 10px rgba(50, 160, 255, 5);
 }
 
-.image-container {
+.title {
+  color: white;
+  display: block;
+  text-align: center;
+}
+
+/* .image-container {
   display: inline-block;
   position: absolute;
   width: 100%;
@@ -64,4 +70,4 @@
 }
 .ul-list{
   color: #fff;
-}
+} */

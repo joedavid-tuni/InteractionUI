@@ -8,6 +8,7 @@ import LeftSlide from '../left_slide/LeftSlide';
 import RightSlide from '../right_slide/RightSlide';
 import BottomSlide from '../bottom_slide/BottomSlide';
 import ImPanel from '../im_panel/ImPanel';
+import ProcessDescriptionDrawer from '../process_description/ProcessDescriptionDrawer'
 import { useSelector } from 'react-redux';
 
 const InnerFrame = () => {  
@@ -29,6 +30,7 @@ const InnerFrame = () => {
       <RightSlide></RightSlide>
       <BottomSlide ></BottomSlide>
       <ImPanel ></ImPanel>
+      <ProcessDescriptionDrawer></ProcessDescriptionDrawer>
     </div>
   )
 }

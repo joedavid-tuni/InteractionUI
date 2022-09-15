@@ -1,0 +1,21 @@
+ * {
+    box-sizing: border-box;
+ }
+  .card {
+    border: 2px;
+    width: 80%;
+    height: fit-content;
+    border-color: white;
+    border: 1px solid #888;
+    color: white;
+    border-radius: 18px;
+    padding-bottom: 8px;
+    margin-bottom:8px;
+  }
+
+  a {
+    display: block;
+    padding: 2px 2px;
+    padding-left: 10px;
+  }
+  

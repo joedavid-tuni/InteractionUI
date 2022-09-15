@@ -1,0 +1,32 @@
+.left-arrow2 {
+  overflow: visible;
+  right: 0;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  height: 60px;
+  fill: #888;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  z-index: 31;
+}
+
+.left-arrow2-icon {
+  height: 80px;
+  float: right;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.left-arrow2:hover {
+  fill: rgb(50, 160, 255);
+  -webkit-filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+  filter: drop-shadow(0 0 15px rgb(50, 160, 255));
+}

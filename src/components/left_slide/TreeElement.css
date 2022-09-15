@@ -1,0 +1,104 @@
+
+.treeview-animated.w-20 {
+  width: 20rem;
+}
+.treeview-animated ul {
+  position: relative;
+  list-style: none;
+  padding-left: 1em;
+}
+.treeview-animated-list li {
+  padding: 0.2em 0 0 0.2em;
+}
+.treeview-animated-element2 {
+  padding: 0.2em 0.2em 0.2em 0.6em;
+  cursor: pointer;
+  transition: all .1s linear;
+  border-radius: 5px;
+  border: 1px solid #888;
+  color: #fff;
+  background-color: #000;
+}
+.treeview-animated-element2:hover {
+  color: rgb(140, 185, 255);
+}
+.treeview-animated-element2.opened {
+  color: rgb(50, 160, 255);
+}
+.treeview-animated-element2.opened:hover {
+  color: rgb(50, 160, 255);
+}
+.closed {
+  color: #fff;
+  background-color: #000;
+}
+.treeview-animated-items .nested::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: grey;
+  left: 5px;
+  width: 5px;
+  height: 100%;
+}
+.treeview-animated-items .closed::before {
+  content: "+";
+  padding: 0 3px 0 0;
+}
+.treeview-animated-items .open::before {
+  content: "-";
+  padding: 0 3px 0 0;
+}
+.open:last-child {  
+  color: rgb(50, 160, 255);
+}
+.treeview-animated-items .closed {
+  display: block;
+  padding: 0.2em 0.2em 0.2em 0.4em;
+  margin-right: 0;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #888;
+  font-size: 15px;
+}
+.treeview-animated-items .closed:hover {
+  color: rgb(140, 185, 255);
+}
+.treeview-animated-items .open {
+  transition: all .1s linear;
+  color: rgb(50, 160, 255);
+ 
+}
+.treeview-animated-items .selected{
+  font-size: 20px; 
+}
+
+.treeview-animated-items .open span {
+  color: rgb(255, 255, 255);
+}
+.treeview-animated-items .open:hover > span {
+  color: rgb(140, 185, 255);
+}
+.treeview-animated ul li .open div:hover {
+  color: rgb(50, 160, 255);
+}
+.treeview-animated-items .closed .fa-angle-right {
+  transition: all .1s linear;
+}
+.closed .fa-angle-right.down {
+  position: relative;
+  color: #fff;
+  transform: rotate(90deg);
+}
+.treeview-animated-items .nested {
+  transition: all 1s ease-in;
+  overflow: hidden;
+  height: 0;
+}
+.treeview-animated-items .nested.active {
+  height: auto;
+}
+
+.nested {
+  position: relative;
+}

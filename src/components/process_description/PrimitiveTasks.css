@@ -1,0 +1,15 @@
+.tasks-container {
+    display: inline;
+    position: relative;
+    max-width: 95%;
+    max-height: 95%;
+    height:250px;
+    width: 100%;
+    left: 10%;
+    top: 20%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    top: 10px;
+
+  }
+  
