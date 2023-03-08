@@ -50,7 +50,7 @@ const TreeElement = (props) => {
       // If there are no child elements
       tempEement = (
         <li>
-          <div style={{ backgroundColor: bg }}className="treeview-animated-element2">
+          <div style={{ backgroundColor: bg }}className="treeview-animated-element4">
             {e.name}
           </div>
         </li>

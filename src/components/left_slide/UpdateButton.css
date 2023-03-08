@@ -13,24 +13,36 @@
 }
 
 .update-button {
-  display: inline-block;
+  display: block;
   position: absolute;
-  height: 45px;
-  width: 70%;
-  min-width: 100px;
-  max-width: 200px;
-  background-color: #78a;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  height: auto;
+  width: 80%;
+  /* min-width: 100px;
+  max-width: 200px; */
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(255, 255, 255);
+  top: -25%;
+  left: 10%;
+  /* -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   border-radius: 10px;
-  border: 4px outset #78a;
+  /* border: 4px outset #78a; */
   cursor: pointer;
+  border: 4px outset rgb(50, 190, 255);
+  
+  
 }
 
+.update-button:active {
+  background-color:rgb(38, 115, 150);;
+  /* box-shadow: 0 5px #666; */
+  transform: translateY(4px);
+} 
+
+
+
 .update-text {
-  font-size: 15;
+  font-size: 20px;
   border: none;
   display: inline-block;
   position: relative;
@@ -38,15 +50,43 @@
   vertical-align: middle;
   top: 45%;
   width: 100%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  font-size: 30px;
+  /* -ms-transform: translateY(-50%);
+  transform: translateY(-50%); */
 }
 
 .update-button:hover {
-  background-color: rgb(50, 160, 255);
-  border: 4px outset rgb(50, 160, 255);   
+  background-color: rgb(38, 115, 150);
+  /* border: 4px outset rgb(50, 160, 255);    */
 }
 .update-button:active:hover {
   background-color: rgb(50, 160, 255);
-  border: 4px inset rgb(50, 160, 255);        
+  /* border: 4px inset rgb(50, 160, 255);         */
 }
+
+/* 
+.button{
+  display: block;
+  position: absolute;
+  top: 75%;
+  left: 25%;
+  width: 125%;
+  transition-duration: 0.1s;
+  background-color: black;
+  color: white;
+  border: 2px solid #4CAF50;
+  height: auto;
+  border-radius: 20px;
+  font-size: 20px;
+  
+}
+
+.button:hover{
+  background-color: #4CAF50; 
+  color: white;
+}
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+} */

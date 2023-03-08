@@ -13,7 +13,13 @@ import { PetriNetTransition, PetriNetArc, PetriNetPlace } from '../../utils/pm4j
 const TreesDropDown = () => {
   const height = useSelector((state) => state.config.treeView.height);
   const dispatch = useDispatch();
-  const [treeList, setTreeList] = useState();
+  const [treeList, setTreeList] = useState([{
+    id: Math.random(),
+    title: "Select Work Plan"
+  },{
+    id: Math.random(),
+    title: "Select Work Plan2"
+  }]);
   const [treeOptions, setTreeOptions] = useState();
   const [selectedId, setSelectedId] = useState(1);
   const [isReady, , socket] = useContext(WSContext);
@@ -223,7 +229,7 @@ const TreesDropDown = () => {
       <select onChange={onSelectChange} value={selectedId} className="trees-dropdown" name="trees">
         {treeOptions}
       </select>
-      <button className="button" onClick={onRequestCollaborationHandler}>Request Collaborative Assembly</button>
+      <button className="button" onClick={onRequestCollaborationHandler}>G<br/>O<br/></button>
     </div>
   )
 }

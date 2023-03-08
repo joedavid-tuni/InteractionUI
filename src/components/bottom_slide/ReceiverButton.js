@@ -42,7 +42,8 @@ const ReceiverButton = (props) => {
       data.results.bindings.map((task) => {
         currentTasks.push({
           id: task.id.value,
-          task: task.task1.value.split('#').slice(-1)[0]
+          task: task.task1.value.split('#').slice(-1)[0],
+          desc: task.desc.value.split('#').slice(-1)[0]
         })
         setProductionTaskList(currentTasks);
       })
@@ -63,7 +64,7 @@ const ReceiverButton = (props) => {
   return (
     <div onClick={taskButtonClickHandler} className="receiver-button-container">
       <div ref={ref} className="receiver-button">
-        <div className="receiver-button-text">{productionTask.task}</div>
+        <div className="receiver-button-text">{productionTask.desc}</div>
         <Radius radius={radius} parentElement={ref.current}></Radius>
       </div>
     </div>

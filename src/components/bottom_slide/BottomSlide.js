@@ -31,10 +31,12 @@ const BottomSlide = () => {
 
 
   useEffect(() => {
+
     clearTimeout(fetchTaskTimer);
+
     let timer = setTimeout(() => {
       setIsFloatOut(false);
-      //Fetch tasks here
+      // todo: Fetch tasks here
       setTimeout(() => {
         // console.log("Indices", caIndex, receiverIndex)
         if (protocol === "propose" && currentTask === 1) {
@@ -46,11 +48,16 @@ const BottomSlide = () => {
         }
       }, 100);
     }, 1000);
-    setTimeout(() => {
-      setTaskList([]);
-    }, 500);
+
+    // not sure what this is doing, but you did this for some reason
+    // setTimeout(() => {
+    //   setTaskList([]);
+    // }, 500);
+
     setFetchTaskTimer(timer);
+
     setIsFloatOut(true);
+
   }, [protocol, currentTask])
 
   useEffect(() => {
@@ -77,6 +84,7 @@ const BottomSlide = () => {
   }
 
   const sendClick = () => {
+    dispatch(interactionActions.close());
     let _interactionProtocol = "";
     let selectedTasks = 0;
     for (let task of taskList) {
@@ -84,12 +92,15 @@ const BottomSlide = () => {
         selectedTasks += task.id;
       }
     }
-    if (protocol != "Inform") {
+    if (protocol != "Inform") {  //todo: change to "performative"
+      // if anything else as performative other than inform, you construct a proper corresponding IP
       requestedAndProposedTasks[currentTask.task] = protocol;
       _interactionProtocol = "fipa-" + protocol.toLowerCase();
     }
     else{
+      // if inform as performative, you make the task name as IP?
       _interactionProtocol  = requestedAndProposedTasks[currentTask.task];
+      // do you want to have fipa-propose as IP? because you would only be informing after you propose?
     }
     
     console.log("IP: ", _interactionProtocol)
@@ -116,10 +127,11 @@ const BottomSlide = () => {
       isSendEnabled = true;
     }
   }
+  // CAButton2: todo: change to "performative"
   return (
     <div className="bottom-slide" style={{ bottom: isOpen ? "0%" : "-20%" }}>
       <div className="select-buttons-container">
-        <CaButton2 changeProtocol={changeProtocolHandler}></CaButton2>
+        <CaButton2 changeProtocol={changeProtocolHandler}></CaButton2> 
         <ReceiverButton changeCurrentTask={changeCurrentTask} protocol={protocol}></ReceiverButton>
       </div>
       <div className="tasks-list-container">

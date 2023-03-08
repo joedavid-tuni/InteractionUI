@@ -17,10 +17,10 @@ const configSlice = createSlice({
         settingsButton: 0
       },
       innerFrame: {
-        left: 100,
-        top: 50,
-        width: 1100,
-        height: 600
+        left: 135,
+        top: 0,
+        width: 1561,
+        height: 1062
       },
       dragBarsWidth: 10,
       arrowHeight: 80,

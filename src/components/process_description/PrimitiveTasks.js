@@ -10,11 +10,11 @@ const PrimitiveTasks = (props) => {
         <div className="tasks-container">
             {props.tasks.map((taskItem) => {
                 return <PrimitiveTask
-                    name={taskItem.Name}
-                    role1={taskItem.Role_1}
-                    role2={taskItem.Role_2}
-                    description={taskItem.Description}
-                    modality={taskItem.Modality}>
+                    name={taskItem.name}
+                    role1={taskItem.operatorRole}
+                    role2={taskItem.robotRole}
+                    description={taskItem.description}
+                    modality={taskItem.modality}>
                 </PrimitiveTask>
             })
             }

@@ -13,7 +13,7 @@
   z-index: 30;
 }
 
-.left-drag-bar {
+.left-drag-bar2 {
   border: none;
   background-color: rgba(0,0,0,0);
   cursor: e-resize;
@@ -28,7 +28,7 @@
   z-index: 35;
 }
 
-.left-drag-bar:hover {
+.left-drag-bar2:hover {
   transition: 0.2s;
   background-color:rgba(50,160,255, 0.5); 
   box-shadow: 0 0 10px rgba(50, 160, 255, 5);

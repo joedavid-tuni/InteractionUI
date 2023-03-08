@@ -17,7 +17,9 @@ const imClasses = [
   { name: "ACCEPT-PROPOSAL", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 1, text: "Okay" }] },
   { name: "REJECT-PROPOSAL", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 1, text: "Okay" }] },
   { name: "CANCEL", bg: "linear-gradient(rgb(255, 214, 204), rgb(255, 112, 77))", optionButtons: [{ id: 11, text: "Okay" }] },
-  { name: "CFP", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 12, text: "Inspect" }, { id: 13, text: "Propose" }, { id: 14, text: "Reject" }] }
+  { name: "CFP", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 12, text: "Inspect" }, { id: 13, text: "Propose" }, { id: 14, text: "Reject" }] },
+  { name: "INFORM-IF", bg: "linear-gradient(rgb(230, 243, 255), rgb(102, 176, 255))", optionButtons: [{ id: 1, text: "Ready" }, { id: 2, text: "Inform" },  { id: 3, text: "Not Understood" }] },
+  
 ]
 
 // linear-gradient(rgb(214, 228, 252), rgb(128, 192, 255))
@@ -40,6 +42,25 @@ const ImPanel = () => {
 
       console.log("Inspect task by opening drawer")
       dispatch(leftDrawerActions.open())
+
+    }
+    if (ca == "Ready") {  // informing that the operator is ready for a synchronous collaboration
+
+      console.log("Inspect task by opening drawer")
+      socket.send(JSON.stringify({
+        type: "agent_communication",
+        value: {
+          sender: "Operator",
+          receiver: imData.value.sender,
+          context: "Synchronous Ready",
+          communicativeAct: "INFORM",
+          interactionProtocol: "",
+          conversation_id: imData.value.conversation_id,
+          reply_with: "",
+          in_reply_to: imData.value.reply_with,
+          loopbackcontent : imData.value.loopbackcontent
+        }
+      }));
 
     }
     else if(ca=="Propose"){
@@ -103,7 +124,7 @@ const ImPanel = () => {
       className='im-panel'
       style={{
         bottom: isOpen ? "0%" : "-20%",
-        backgroundImage: bg
+        // backgroundImage: bg
       }}>
       <div className="sender-container">
         <div className="sender-text">Sender:&#10;&#13;{imData.value.sender}</div>

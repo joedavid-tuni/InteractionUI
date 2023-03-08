@@ -1,15 +1,15 @@
 {
     "KBEPlatform": {
-        "IP": "192.168.1.100",
+        "IP": "192.168.1.114",
         "KBEAgent": "NXAgent",
         "KBPort" : "3002",
         "KBGraphURI" : "https://joedavid91.github.io/ontologies/camo/product" 
     },
     "MainPlatform": {
-        "IP": "192.168.1.115",
+        "IP": "localhost",
         "ServerPort": "8887",
         "RobotFueski": "3002",
-        "OperatorFuseki": "3001"
+        "OperatorFuseki": "3001"    
     }
     
     

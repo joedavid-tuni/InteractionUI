@@ -13,7 +13,7 @@
   overflow: visible;
   height: 90%;
   width: 90%;
-  background-color: #78a;
+  background-color: rgb(0, 0, 0);
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
@@ -26,6 +26,7 @@
   position: absolute;
   margin: 0;
   padding: 0;
+  
 }
 
 .action-button-text {
@@ -39,7 +40,8 @@
   transform: translate(-50%, -50%);
   vertical-align: middle;
   width: 100%;
-  font-size: 14px;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.475);
 }
 
 .action-button:hover {

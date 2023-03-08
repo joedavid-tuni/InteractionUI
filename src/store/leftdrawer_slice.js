@@ -5,7 +5,7 @@ const leftDrawerSlice = createSlice({
   initialState: {
     isOpen: false,
     productionTask : { },
-    processPlanName: "No Plan selected",
+    processPlanName: "No Process Selected",
     processPlan: [],
   },
   reducers: {

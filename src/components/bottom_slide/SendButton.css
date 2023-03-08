@@ -11,17 +11,17 @@
 
 .send-button {
   overflow: visible;
-  background-color: #8b8;
+  background-color: rgba(136, 187, 136, 0);
   border: 4px outset #8b8;
   cursor: pointer;
   border-radius: 110px;
   transition: 0.4s;
   transform: translate(-50%, -50%);
   top: 50%;
-  left: 50%;
+  left: 30%;
   position: absolute;
-  height: 90%;
-  width: 90%;
+  height: 120%;
+  width: 120%;
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -31,13 +31,15 @@
   display: inline-block;
   position: absolute;
   text-align: center;
-  font-weight: bold;
+  /* font-weight: bold; */
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   vertical-align: middle;
   width: 100%;
+  font-size: 25px;
+  color: rgba(255, 255, 255, 0.346);
 }
 
 .send-button:hover {  

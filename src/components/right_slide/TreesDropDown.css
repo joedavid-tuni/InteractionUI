@@ -6,44 +6,71 @@
 
   bottom: 0;
   left: 0;
-  width: 60%;
+  width: 100%;
   border: none;
 }
 
 .tree-option {
-  color: #000;
+  color: rgb(255, 255, 255);
   font-size: 20px;
-  background-color: rgba(0, 0, 0, 0);
+  
+  font-size: 30px;
+  height: 120px;
+}
+
+.tree-option:hover {
+  background-color: yellow;
+  color: yellow;
 }
 
 .trees-dropdown {
   display: block;
   position: absolute;
-  top: 35%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  top: 30%;
+  left: 10%;
+  height: 70px;
+  /* -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 
   margin: 0;
   padding: 2px;
-  width: 90%;
-  background-color: rgba(0, 0, 0, 0);
+  width: 80%;
+  background-color: rgba(0, 0, 0, 1);
   color: #fff;
-  font-size: 20px;
+  font-size: 30px;
   border: 1.5px solid #888;
   border-radius: 10px;
   transition: 0.2s;
   cursor: pointer;
   z-index: 1;
+ 
 }
 
 .button{
   display: block;
   position: absolute;
-  top: 75%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  top: 55%;
+  right: 10%;
+  width: 25%;
+  height: 40%;
+  /* -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  transition-duration: 0.1s;
+  background-color: black;
+  color: white;
+  border: 4px outset #4CAF50; /* Green */
+  border-radius: 10px;
+  font-size: 30px;
+}
+
+.button:hover{
+  background-color: #4caf4f7a; /* Green */
+  color: white;
+}
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 .trees-dropdown:hover, .trees-dropdown:focus {

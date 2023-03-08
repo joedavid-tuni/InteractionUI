@@ -57,6 +57,7 @@ const canvasSlice = createSlice({
           // Add new polygon
           polygon = data;
           polygon.points = convexHull(polygon.points);
+          // polygon.color = data.color;
   
           state.polygons.push(polygon);
         } else {
@@ -101,6 +102,10 @@ const canvasSlice = createSlice({
   
         let polygon = getPolygonByName(actions.name);
         polygon.mode = actions.mode;
+      },
+      remove: (state,actions)=>{
+
+        state.polygons = state.polygons.filter((polygon)=>polygon.name!=actions.name)
       }
     }
   });

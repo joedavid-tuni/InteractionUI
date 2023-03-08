@@ -14,11 +14,11 @@
   height: 100%;
   width: 100%;
   padding: 0 5px 0 20px;
-  overflow-y: scroll;
-  top: 0;
+  /* overflow-y: scroll; */
+  top: 40px;
   left: 0;
   border: none;
-  border-bottom: 1px solid #888;
+  /* border-bottom: 1px solid #888; */
 }
 .main-list-left {
   position: relative;
@@ -33,7 +33,7 @@
   top: 35%;
   width: 100%;
   height: 35%;
-  border-bottom: 1px solid #888;
+  /* border-bottom: 1px solid #888; */
   /* overflow-y: scroll; */
 }
 .ul-list-left{
@@ -47,6 +47,7 @@
   padding-top: 10px;
   padding-bottom: 5px;
   padding-left: 2%;
+  font-size: 22px;
 }
 .heading2-left{
   color: #ffff;
@@ -54,8 +55,10 @@
   padding-bottom: 5px;
   padding-left: 2%;
   position: absolute;
-  top: 45px;
+  top: 90px;
   display: block;
+  font-size: 20px;
+  word-wrap: break-word;
 }
 
 .tree-elements-left{

@@ -84,6 +84,14 @@ class PetriNetTransition {
 		this.outArcs = {};
 		this.properties = {};
 		this.associatedTime = 0;
+		this.procCap = "";
+		this.comp = "";
+	}
+
+	setPC(procCap, comp){
+		this.procCap = procCap;
+		this.comp = comp;
+
 	}
 	
 	toString() {

@@ -13,9 +13,10 @@
 
 .ca-button {
   position: absolute;
-  height: 45px;
-  width: 70%;
-  background-color: #78a;
+  height: 55px;
+  width: 120%;
+  background-color:rgba(221, 170, 243, 0.3);
+  color: white;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);

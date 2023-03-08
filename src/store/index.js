@@ -9,6 +9,7 @@ import rightDrawerReducer from './rightdrawer_slice';
 import messageDrawerReducer from './messagedrawer_slice';
 import workplanReducer from './workplan-slice';
 import processDescriptionReducer from './processdescriptiondrawer_slice'
+import kinectReducer from "./kinect_slice";
 
 const store = configureStore({
   reducer: {
@@ -20,7 +21,8 @@ const store = configureStore({
     blinking: blinkingReducer,
     canvas: canvasReducer,
     config: configReducer,
-    workplan: workplanReducer
+    workplan: workplanReducer,
+    kinect: kinectReducer
   }
 });
 

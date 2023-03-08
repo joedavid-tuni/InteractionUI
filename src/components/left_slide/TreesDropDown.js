@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { leftDrawerActions } from '../../store/leftdrawer_slice';
 import WSContext from '../../store/ws-context';
 import config from '../../config/config.json'
-import { getIDofProcessPlanOfProductionTask, getCurrentProductionTasksQuery } from '../../utils/SPARQLQueryBuilder';
+import { getIDofProcessPlanOfProductionTask, getCurrentProductionTasksQuery, getProcessClassAndPerformedComponent } from '../../utils/SPARQLQueryBuilder';
 import { pnml } from '../../config/case';
 import PnmlImporter from '../../utils/pm4js/importer/importer';
 import { PetriNetTransition, PetriNetArc, PetriNetPlace } from '../../utils/pm4js/petri_net';
+import { fetchQuery } from '../../utils/FetchUtlis';
 
 
 const TreesDropDown = () => {
@@ -21,7 +22,10 @@ const TreesDropDown = () => {
   const [error, setError] = useState(null);
 
   const fetchProductionTasks = async () => {
-    let currentTasks = [];
+    let currentTasks = [{
+      id: "123456",
+      task: "None Selected"
+    }];
     const url = new URL("http://" + config.MainPlatform.IP + ":" + config.MainPlatform.OperatorFuseki + "/ds/query");
     const params = { 'query': getCurrentProductionTasksQuery() }
     url.search = new URLSearchParams(params).toString();
@@ -37,24 +41,22 @@ const TreesDropDown = () => {
     const response = await fetch(url, options);
     // console.log("DEBUg", response)
     const data = await response.json();
-    // console.log("DEBUg", data.results)
-    if (data.results.bindings.length == 0) {
-      setProductionTasksList([{ id: 1, task: "No Tasks" }]);
-    }
-    else {
-      data.results.bindings.map((task) => {
-        currentTasks.push({
-          id: task.id.value,
-          task: task.task1.value.split('#').slice(-1)[0]
-        })
-        // console.log("list debug", currentTasks)
-        currentTasks.unshift({
-          id: "123456",
-          task: "None Selected"
-        })
-        setProductionTasksList(currentTasks);
+    console.log("DEBUg", data.results)
+    // if (data.results.bindings.length == 0) {
+    //   setProductionTasksList([{ id: 1, task: "No Tasks" }]);
+    // }
+    // else {
+    data.results.bindings.map((task) => {
+      currentTasks.push({
+        id: task.id.value,
+        task: task.task1.value.split('#').slice(-1)[0],
+        desc: task.desc.value.split('#').slice(-1)[0]
       })
-    }
+      console.log("list debug", currentTasks)
+      
+    })
+    setProductionTasksList(currentTasks);
+    // }
   }
 
   useEffect(() => {
@@ -64,12 +66,12 @@ const TreesDropDown = () => {
     // console.log("Debug chaning options")
     setTreeOptions(
       // TODO:
-      productionTasksList.map(tree => <option key={tree.id} className="tree-option-left" value={tree.id}>{tree.task}</option>
+      productionTasksList.map(tree => <option key={tree.id} className="tree-option-left" value={tree.id}>{tree.desc}</option>
       )
     );
     console.log(treeOptions)
     // }
-  }, [productionTasksList])
+  }, [productionTasksList ])
 
   useEffect(() => {
     if (isReady) {
@@ -77,7 +79,7 @@ const TreesDropDown = () => {
       setError(null);
       fetchProductionTasks();
     }
-  }, [isReady, socket])
+  }, [isReady, socket, productionTask])
 
   function createObj(PNObj) {
     let tempArr = [];
@@ -89,7 +91,14 @@ const TreesDropDown = () => {
       for (const [index, [arcKey,]] of Object.entries(Object.entries(outArcs))) {
         let term = createObj(outArcs[arcKey]);
 
-        let obj = { name: PNObj.label, key: PNObj.name, state: "initial" }
+        // {name: "PT9731864924", label: "Setup",...
+
+        // let capClass = data.results.bindings[0].capClass.value.split('#').slice(-1)[0];
+        // let comp = data.results.bindings[0].comp.value.split('#').slice(-1)[0];
+
+        // console.log("Debug: ", capClass, " ",comp)
+        
+        let obj = { name: PNObj.label, key: PNObj.name, state: "initial", procCap : PNObj.procCap, comp: PNObj.comp}
 
         if ((parseInt(index) + 1) == noOutArcs) { // no more parallel arcs
 
@@ -141,7 +150,7 @@ const TreesDropDown = () => {
   // TODO: fetch the proces plan for the production task and set productionTasksList
   useEffect(() => {
     // fetch ID/name from KB
-    console.log("Fetching plans for productionTask " , productionTask)
+    console.log("Fetching plans for productionTask ", productionTask)
 
     const sendRequest = async () => {
 
@@ -164,10 +173,6 @@ const TreesDropDown = () => {
       console.log(data)
       const id = data.results.bindings[0].ppid.value; //directly grab the first element as you are expectuing one UID
 
-
-
-
-
       // fetch plan from rest server
 
       const response2 = await fetch('http://127.0.0.1:3005/' + id, {
@@ -184,10 +189,28 @@ const TreesDropDown = () => {
 
       let acceptingPetriNet = PnmlImporter.apply(data2);
       console.log(acceptingPetriNet.im.getEnabledTransitions());
-      console.log(acceptingPetriNet.im.getEnabledTransitions()[0].getPostMarking());
+      // console.log(acceptingPetriNet.im.getEnabledTransitions()[0].getPostMarking());
       let enabledTransitions = acceptingPetriNet.im.getEnabledTransitions();
 
       for (const transition of enabledTransitions) {
+        // const url = new URL("http://" + config.MainPlatform.IP + ":" + config.MainPlatform.OperatorFuseki + "/ds/query");
+        // const params = { 'query': getProcessClassAndPerformedComponent(transition.label) }
+        // url.search = new URLSearchParams(params).toString();
+        // const options = {
+        //   method: 'POST',
+        //   // mode: 'no-cors',
+        //   headers: {
+        //     'content-type': 'application/x-www-form-urlencoded'
+        //   },
+        //   // body: params
+        // }
+        // const response = await fetch(url, options);
+        // const data = await response.json();
+        // let capClass = data.results.bindings[0].capClass.value.split('#').slice(-1)[0];
+        // let comp = data.results.bindings[0].comp.value.split('#').slice(-1)[0];
+
+        // transition.setPC(capClass,comp)
+
         t.push(createObj(transition));
       }
 
@@ -201,14 +224,14 @@ const TreesDropDown = () => {
     // fetch plan from rest server
     if (productionTask.task != "None Selected") {
       sendRequest();
-      
+
     }
 
-    else{
+    else {
       dispatch(leftDrawerActions.setProcessPlan([]))
     }
 
-
+    dispatch(leftDrawerActions.setProductionTask(productionTask));
   }, [productionTask])
 
 
@@ -219,18 +242,16 @@ const TreesDropDown = () => {
   const onSelectChange = (e) => {
     // console.log("Selected ID", e.target.value, "production task ", productionTask, "List", productionTasksList)
     // dispatch(leftDrawerActions.setProductionTask({id: e.target.value, task: e.target.value}))
-    let temp = productionTasksList.reduce((prevValue, currValue) => {
-      if (currValue.id == e.target.value) {
-        return currValue;
-      }
-    })
-    if (temp == undefined) {
-      temp = { id: "123456", task: "None Selected" }
+    
+    let temp = { id: "123456", task: "None Selected" }
+    temp = productionTasksList.filter(currValue => currValue.id === e.target.value)
+    if(temp.id==="123456"){
+      console.log("Not found")
     }
 
-    // console.log("Setting production Task" , temp)
+    console.log("Setting production Task" , temp[0])
 
-    dispatch(leftDrawerActions.setProductionTask(temp));
+    dispatch(leftDrawerActions.setProductionTask(temp[0]));
     // console.log("Production Task" , productionTask)
 
   }
@@ -238,7 +259,7 @@ const TreesDropDown = () => {
 
   return (
     <div className="trees-dropdown-container-left" >
-      <select onChange={onSelectChange} value={productionTask.id} className="trees-dropdown-left" name="trees">
+      <select onClick={fetchProductionTasks} onChange={onSelectChange} value={productionTask.id} className="trees-dropdown-left" name="trees">
         {treeOptions}
       </select>
     </div>

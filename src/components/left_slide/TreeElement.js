@@ -2,6 +2,9 @@ import './TreeElement.css';
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { leftDrawerActions } from '../../store/leftdrawer_slice';
+import { getProcessClassAndPerformedComponent} from '../../utils/SPARQLQueryBuilder'
+import { fetchQuery} from '../../utils/FetchUtlis'
+import config from '../../config/config.json'
 
 
 
@@ -12,6 +15,7 @@ const states = [
   { name: "in focus", backgroundColor: "#004", isBlinking: true },
   { name: "performing", backgroundColor: "rgba(255, 162, 51, 0.45)", isBlinking: true },
   { name: "newly completed", backgroundColor: "rgba(0, 255, 50, 0.45)", isBlinking: true },
+  { name: "incapable", backgroundColor: "rgba(0, 255, 50, 0.45)", isBlinking: true },
   { name: "completed", backgroundColor: "rgba(0, 255, 50, 0.45)", isBlinking: false },
   { name: "planned", backgroundColor: "rgba(0, 255, 50, 0.2)", isBlinking: false }
 ];
@@ -34,7 +38,7 @@ const TreeElement = (props) => {
     }
   }, [props.element.state]);
 
-  useEffect(() => {
+  useEffect(async () => {
     let tempEement;
     let e = props.element;
     let bg = backgroundColor;
@@ -54,8 +58,8 @@ const TreeElement = (props) => {
       // If there are no child elements
       tempEement = (
         <li>
-          <div style={{ backgroundColor: bg }} className="treeview-animated-element2">
-            {e.name}
+          <div style={{ backgroundColor: bg }} className="treeview-animated-element4">
+            {e.procClass}
           </div>
         </li>
       );
@@ -78,17 +82,42 @@ const TreeElement = (props) => {
         class1 += " selected"
         dispatch(leftDrawerActions.setProcessPlanName(e.name))
       }
+
+      // let query = 
+      const url = new URL("http://" + config.MainPlatform.IP + ":" + config.MainPlatform.OperatorFuseki + "/ds/query");
+      const params = { 'query': getProcessClassAndPerformedComponent(e.name) }
+      url.search = new URLSearchParams(params).toString();
+      const options = {
+        method: 'POST',
+        // mode: 'no-cors',
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        // body: params
+      }
+      const response = await fetch(url, options);
+      const data = await response.json();
+      let capClass = data.results.bindings[0].capClass.value.split('#').slice(-1)[0];
+      let comp = data.results.bindings[0].comp.value.split('#').slice(-1)[0];
+
+
       tempEement = (
-        <li className="treeview-animated-items">
+        <li className="treeview-animated-items3">
           <a onClick={selectElement} // Add click handler --> open and close element
-            style={{ backgroundColor: bg }}
+            style={{ backgroundColor: bg, height: "auto" }}
             className={class1}>
             <i  className={class2}></i>
-            Process: <span >
-              {e.name}
-              <br />
-              {e.state}
-            </span>
+            <div className='caption'>Process:
+            <span className='text' >{e.name}  </span>
+            </div>
+             
+              <div className='caption'>Process Type:
+                <span className='text'>{capClass}</span> 
+              </div> 
+              <div className='caption'>Part: 
+                <span className='text'>{comp}</span> 
+              </div> 
+          
           </a>
           <ul className={class3}>{tempElements}</ul>
         </li>

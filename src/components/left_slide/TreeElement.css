@@ -10,7 +10,7 @@
 .treeview-animated-list li {
   padding: 0.2em 0 0 0.2em;
 }
-.treeview-animated-element2 {
+.treeview-animated-element4 {
   padding: 0.2em 0.2em 0.2em 0.6em;
   cursor: pointer;
   transition: all .1s linear;
@@ -19,20 +19,20 @@
   color: #fff;
   background-color: #000;
 }
-.treeview-animated-element2:hover {
+.treeview-animated-element4:hover {
   color: rgb(140, 185, 255);
 }
-.treeview-animated-element2.opened {
+.treeview-animated-element4.opened {
   color: rgb(50, 160, 255);
 }
-.treeview-animated-element2.opened:hover {
+.treeview-animated-element4.opened:hover {
   color: rgb(50, 160, 255);
 }
 .closed {
   color: #fff;
   background-color: #000;
 }
-.treeview-animated-items .nested::before {
+.treeview-animated-items3 .nested::before {
   content: "";
   display: block;
   position: absolute;
@@ -41,48 +41,48 @@
   width: 5px;
   height: 100%;
 }
-.treeview-animated-items .closed::before {
+.treeview-animated-items3 .closed::before {
   content: "+";
   padding: 0 3px 0 0;
 }
-.treeview-animated-items .open::before {
+.treeview-animated-items3 .open::before {
   content: "-";
   padding: 0 3px 0 0;
 }
 .open:last-child {  
   color: rgb(50, 160, 255);
 }
-.treeview-animated-items .closed {
+.treeview-animated-items3 .closed {
   display: block;
   padding: 0.2em 0.2em 0.2em 0.4em;
   margin-right: 0;
   cursor: pointer;
   border-radius: 5px;
   border: 1px solid #888;
-  font-size: 15px;
+  font-size: 20px;
 }
-.treeview-animated-items .closed:hover {
+.treeview-animated-items3 .closed:hover {
   color: rgb(140, 185, 255);
 }
-.treeview-animated-items .open {
+.treeview-animated-items3 .open {
   transition: all .1s linear;
   color: rgb(50, 160, 255);
  
 }
-.treeview-animated-items .selected{
-  font-size: 20px; 
+.treeview-animated-items3 .selected{
+  font-size: 25px; 
 }
 
-.treeview-animated-items .open span {
+.treeview-animated-items3 .open span {
   color: rgb(255, 255, 255);
 }
-.treeview-animated-items .open:hover > span {
+.treeview-animated-items3 .open:hover > span {
   color: rgb(140, 185, 255);
 }
 .treeview-animated ul li .open div:hover {
   color: rgb(50, 160, 255);
 }
-.treeview-animated-items .closed .fa-angle-right {
+.treeview-animated-items3 .closed .fa-angle-right {
   transition: all .1s linear;
 }
 .closed .fa-angle-right.down {
@@ -90,15 +90,24 @@
   color: #fff;
   transform: rotate(90deg);
 }
-.treeview-animated-items .nested {
+.treeview-animated-items3 .nested {
   transition: all 1s ease-in;
   overflow: hidden;
   height: 0;
 }
-.treeview-animated-items .nested.active {
+.treeview-animated-items3 .nested.active {
   height: auto;
 }
 
 .nested {
   position: relative;
+}
+
+.caption {
+  color: rgb(98, 161, 232);
+}
+
+.text {
+  font-style: italic;
+  word-wrap: break-word;
 }

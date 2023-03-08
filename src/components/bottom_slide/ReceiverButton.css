@@ -14,7 +14,8 @@
   position: absolute;
   height: 90%;
   width: 90%;
-  background-color: #78a;
+  
+  background-color: rgba(136, 187, 136, 0);
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
@@ -23,6 +24,7 @@
   border: 4px outset #78a;
   cursor: pointer;
   transition: 0.4s;
+  
 }
 
 .receiver-button-text {
@@ -36,6 +38,8 @@
   transform: translate(-50%, -50%);
   vertical-align: middle;
   width: 100%;
+  font-size: 25px;
+  color: rgba(255, 255, 255, 0.346);
 }
 
 .receiver-button:hover {  

@@ -18,6 +18,7 @@ const Canvas = () => {
     const ctx = canvas.getContext('2d');
     
     ctx.fillStyle = polygon.color;
+    console.log("Coloristo: ", polygon.color )
     ctx.beginPath();
 
     let i = 0;

@@ -78,7 +78,7 @@ const ProcessDescription = () => {
       }}>
       <div
         onMouseDown={dragMouseDown}
-        className="left-drag-bar"
+        className="left-drag-bar2"
         style={{ display: isOpen ? "inline-block" : "none" }}>
       </div>
       <a className='title'>Process: {processName}</a>

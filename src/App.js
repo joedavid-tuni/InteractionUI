@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     blinking();
-    // updateConfig();
+    updateConfig();
   }, [])
 
   const updateConfig = () => {
@@ -28,33 +28,33 @@ function App() {
           sendButton: 0,
           taskButton: 0,
           actionButton: 0,
-          caButton: 0,
-          arrow: 0,
-          updateButton: 0,
-          stopStartButton: 0,
-          settingsButton: 0
+          caButton: 100,
+          arrow: 50,
+          updateButton: 80,
+          stopStartButton: 80,
+          settingsButton: 80
         },
         innerFrame: {
           left: 135,
           top: 0,
-          width: 1561,
+          width: 1561, 
           height: 1062
         },
-        dragBarsWidth: 10,
+        dragBarsWidth: 50,
         arrowHeight: 100,
         treeView: {
           height: 60,
           fontSize: 16
         },
-        rightSlideDefaultWidth: 350,
-        leftSlideDefaultWidth: 350
+        rightSlideDefaultWidth: 432,
+        leftSlideDefaultWidth: 410
       }
 
       dispatch(configActions.updateConfig(configJson));
-    }, 6000);
+    }, 500);
   }
 
-  const blinking = () => {
+  const blinking = () => { // toggles app-wide blinking for all tree elements and canvas polygons
     setTimeout(() => {
       dispatch(blinkingActions.toggleBlinkingState());
       blinking();

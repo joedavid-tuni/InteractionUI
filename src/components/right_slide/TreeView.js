@@ -24,17 +24,13 @@ const TreeView = () => {
       tempElements.push(<TreeElement key={element.key} element={element} />);
     }
     if (tempElements.length === 0) {
-      tempElements = <p style={{color: "#fff"}}>No Production Tasks Available. Please select a Workplan from below</p>
+      tempElements = <p style={{color: "#fff", fontSize: "20px"}}>No Production Tasks Available. Please select a Workplan from below</p>
     }
 
     setTreeElements(tempElements);
   }, [treeItems]);
 
-  // TODO: write a function to caluclate the amount of tree view elements that have status complete
-
-  const calculateCompleted = ()=>{
-    
-  }
+  
   
   return (
     <div className="tree-container" style={{

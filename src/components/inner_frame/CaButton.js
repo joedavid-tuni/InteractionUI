@@ -22,7 +22,7 @@ const CaButton = () => {
   return (
     <div className="ca-button-container" onClick={bottomFloatIn}>
       <div ref={ref} className="ca-button">
-        <div className="ca-button-text">CA</div>      
+        <div className="ca-button-text">Perform Communicative Act</div>      
         <Radius radius={radius} parentElement={ref.current}></Radius>    
       </div>        
     </div>

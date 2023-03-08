@@ -32,11 +32,7 @@ const TreeView = () => {
     setTreeElements(tempElements);
   }, [treeItems]);
 
-  // TODO: write a function to caluclate the amount of tree view elements that have status complete
-
-  const calculateCompleted = ()=>{
-    
-  }
+  
   
   return (
     <div className="ul-list-container-left" style={{
@@ -44,7 +40,7 @@ const TreeView = () => {
     }}>
       <div className="heading1-left">Production Task:</div>
       <TreesDropDown></TreesDropDown>
-      <div className="heading2-left">Selected Process:&nbsp;&nbsp;{nameofplan}</div>
+      <div className="heading2-left">Sel. Process:&nbsp;&nbsp;{nameofplan}</div>
       <div className="tree-container-left">
         <ul style={{fontSize: fontSize + "px"}} className="main-list-left">
           {treeElements}
