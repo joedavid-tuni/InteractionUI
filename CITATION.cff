@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use or extend the application, especially in academic context, please consider citing."
+authors:
+- family-names: "David"
+  given-names: "Joe"
+  orcid: "https://orcid.org/0000-0003-4651-0164"
+title: "Interaction UI"
+version: 0.1.0
+doi: 10.5281/zenodo.1234
+date-released: 2023-03-30
+url: "https://permanent.link/to/jd-doctoral-dissertation/interaction-ui"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "David"
+    given-names: "Joe"
+    orcid: "https://orcid.org/0000-0003-4651-0164"
+  - family-names: "Coatanéa"
+    given-names: "Eric"
+    orcid: "https://orcid.org/0000-0003-4157-7298"
+  - family-names: "Lobov"
+    given-names: "Andrei"
+    orcid: "https://orcid.org/0000-0003-2729-489X"
+  doi: "10.0000/00000"
+  journal: "Journal of Manufacturing Systems"
+  month: 9
+  start: 0 # First page number
+  end: 0 # Last page number
+  title: "Deploying OWL Ontologies for Semantic Mediation of Mixed-Reality Interactions for Human-Robot Collaborative Assembly"
+  issue: 0
+  volume: 0
+  year: 2023
