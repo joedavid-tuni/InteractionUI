@@ -10,20 +10,20 @@ This repository is essentially a [React](https://react.dev/) project that implem
 ## Pre-requisites
 
 To use this repository in the way it was intended to be, the following are needed:
-+ [React](https://react.dev/) and npm ([Node.js](https://nodejs.org/en/download)) installed
 + a computer capable of running a web-browser (e.g. RPi)
++ [React](https://react.dev/) and npm ([Node.js](https://nodejs.org/en/download)) installed
 + a projector.
 + web server maintained in a separate [repository](https://permanent.link/to/jd-doctoral-dissertation/web-server) that interface with the Interaction UI via [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
 
- To understand the code an understanding of the following are required:
- + React Hooks (`useEffect, useContext, useRef, useState`).
+ To understand the source code an understanding of the following are required:
+ + React Hooks (`useEffect`, `useContext`, `useRef`, `useState`), Context API.
  + State management with Redux.
- + Cascaded style sheets.
+ + HTML and Cascading Style Sheets (CSS).
  + JavaScript
 
 ## Getting Started
 
-Once the pre-requisistes are satisfied the project can be run using the start script via the following command in a terminal `npm start `.
+Once the pre-requisistes are satisfied the project can be run using the start script via the following command in a terminal `npm start `. `index.js` is the entry point of the application and `App.js` is the first user-defined component.
 
 ## Components
 
@@ -37,17 +37,18 @@ The five main components are:
 4. Message panel component ([im_panel](src/components/im_panel/))
 5. Canvas component ([canvas](src/components/canvas/))
 
+These components are shown in the figure below and explained in more detail in their respective folders and as comments in the source code.
+
 ![The interface of the Interaction UI](/src/assets/UI%20(components).png)
 
 
 ## Citation
 
-If you use or extend the application, especially in academic context, please consider citing. You can click "Cite this repository" on the right sidebar to copy both `APA` and `BibTeX` formatted citation.
+Under the included [LICENSE](./LICENSE), if you use or extend the application, especially in an academic context, please cite. You can click "Cite this repository" on the right sidebar to copy both `APA` and `BibTeX` formatted citation.
 
 ## License
 
-This work is licensed under a
-[Creative Commons Attribution 4.0 International License][cc-by].
+This work is licensed under a [Creative Commons Attribution 4.0 International License][cc-by]. You can find the included license [here](./LICENSE).
 
 [![CC BY 4.0][cc-by-image]][cc-by]
 

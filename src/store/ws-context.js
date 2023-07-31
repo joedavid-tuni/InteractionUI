@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { rightDrawerActions } from "../store/rightdrawer_slice";
 import { canvasActions } from "../store/canvas_slice";
 import { messageDrawerActions } from "../store/messagedrawer_slice";
-import { workplanActions } from './workplan-slice';
-import fetchScreenParams from '../utils/screenparams';
 import config from '../config/config.json'
 import { leftDrawerActions } from './leftdrawer_slice';
 import { processDescriptionActions } from './processdescriptiondrawer_slice';
@@ -93,7 +91,6 @@ export const WSContextProvider = (props) => {
                         for (let e of t) {
                             if (e.key == key) {
                                 // If key found, update the state
-                                // console.log("YIPEEE! Key found 1")
                                 return e.state = state;
                             }
                             if (e.items.length > 0) {
@@ -101,7 +98,6 @@ export const WSContextProvider = (props) => {
                                 element = updateTreeElement(e.items, key, state);
                                 if (!element == undefined) {
                                     // If key found, update the state
-                                    // console.log("YIPEEE! Key found 2")
                                     return element.state = state;
                                 }
                             }
